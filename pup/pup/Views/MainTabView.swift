@@ -22,6 +22,11 @@ struct MainTabView: View {
                         Label("Map", systemImage: "map")
                     }
                 
+                IncomeDashboardView()
+                    .tabItem {
+                        Label("Income", systemImage: "dollarsign.circle")
+                    }
+                
                 ProfileView()
                     .tabItem {
                         Label("Profile", systemImage: "person.circle")

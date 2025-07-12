@@ -45,7 +45,6 @@ struct RouteMapView: View {
     @EnvironmentObject var viewModel: ScheduleViewModel
     @State private var mapStyle: MapStyle = .standard
     @State private var selectedMarker: MapItem?
-    @State private var showingBottomSheet = false
     @State private var position: MapCameraPosition = .automatic
     @State private var isNavigating = false
     @State private var estimatedTimeOfArrival: Date?
@@ -104,7 +103,6 @@ struct RouteMapView: View {
                                 HomeBaseMarkerView()
                                     .onTapGesture {
                                         selectedMarker = item
-                                        showingBottomSheet = true
                                     }
                             }
                             .annotationTitles(.hidden)
@@ -114,7 +112,6 @@ struct RouteMapView: View {
                                 VisitMarkerView(number: index, isCompleted: item.visit?.isCompleted ?? false)
                                     .onTapGesture {
                                         selectedMarker = item
-                                        showingBottomSheet = true
                                     }
                             }
                             .annotationTitles(.hidden)
@@ -124,7 +121,6 @@ struct RouteMapView: View {
                                 NextVisitMarkerView(number: index)
                                     .onTapGesture {
                                         selectedMarker = item
-                                        showingBottomSheet = true
                                     }
                             }
                             .annotationTitles(.hidden)
@@ -143,6 +139,19 @@ struct RouteMapView: View {
                         
                         Spacer()
                     }
+                }
+                
+                // Live Odometer Overlay
+                VStack {
+                    HStack {
+                        LiveOdometerView()
+                            .padding(.horizontal, Config.largeSpacing)
+                            .padding(.top, Config.itemSpacing)
+                        
+                        Spacer()
+                    }
+                    
+                    Spacer()
                 }
                 
                 // Map Controls
@@ -167,16 +176,14 @@ struct RouteMapView: View {
             .onAppear {
                 fitToRoute()
             }
-            .sheet(isPresented: $showingBottomSheet) {
-                if let marker = selectedMarker {
-                    MarkerDetailBottomSheet(
-                        marker: marker,
-                        onNavigate: { startNavigation(to: marker) },
-                        onMarkComplete: { markComplete(marker) }
-                    )
-                    .presentationDetents([.fraction(0.25), .medium])
-                    .presentationDragIndicator(.visible)
-                }
+            .sheet(item: $selectedMarker) { marker in
+                MarkerDetailBottomSheet(
+                    marker: marker,
+                    onNavigate: { startNavigation(to: marker) },
+                    onMarkComplete: { markComplete(marker) }
+                )
+                .presentationDetents([.fraction(0.25), .medium])
+                .presentationDragIndicator(.visible)
             }
         }
     }
@@ -244,7 +251,6 @@ struct RouteMapView: View {
             viewModel.markVisitCompleted(visit)
         }
         
-        showingBottomSheet = false
         selectedMarker = nil
     }
     

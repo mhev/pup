@@ -47,6 +47,17 @@ struct ModernScheduleView: View {
                                 .padding(.horizontal, Config.largeSpacing)
                                 .padding(.top, Config.itemSpacing)
                             
+                            // Mileage header
+                            MileageHeaderView()
+                                .padding(.horizontal, Config.largeSpacing)
+                                .padding(.top, Config.itemSpacing)
+                            
+                            // Analytics card
+                            AnalyticsCard()
+                                .environmentObject(viewModel)
+                                .padding(.horizontal, Config.largeSpacing)
+                                .padding(.top, Config.itemSpacing)
+                            
                             // Route section
                             if let route = viewModel.optimizedRoute {
                                 ModernRouteCard(
@@ -173,12 +184,14 @@ struct ModernScheduleView: View {
                     }
                 }
             }
-            .sheet(isPresented: $showingAddVisit) {
-                AddVisitBottomSheet(defaultDate: viewModel.selectedDate) { visit in
+            .overlay(
+                showingAddVisit ? AddVisitBottomSheet(
+                    isPresented: $showingAddVisit,
+                    defaultDate: viewModel.selectedDate
+                ) { visit in
                     viewModel.addVisit(visit)
-                    showingAddVisit = false
-                }
-            }
+                } : nil
+            )
             .sheet(isPresented: $showingDatePicker) {
                 CompactDatePickerView(viewModel: viewModel)
             }
@@ -324,18 +337,7 @@ struct CompletedVisitModernRow: View {
     }
 }
 
-// MARK: - Add Visit Bottom Sheet
 
-struct AddVisitBottomSheet: View {
-    let defaultDate: Date?
-    let onSave: (Visit) -> Void
-    
-    var body: some View {
-        AddVisitView(defaultDate: defaultDate, onSave: onSave)
-            .presentationDetents([.height(600), .large])
-            .presentationDragIndicator(.visible)
-    }
-}
 
 // MARK: - Visit Detail Bottom Sheet
 

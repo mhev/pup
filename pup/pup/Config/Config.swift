@@ -56,6 +56,24 @@ struct Config {
     static let navigationColor = Color.blue
     static let shadowColor = Color.black.opacity(0.08)
     
+    // Translucent header colors
+    static let headerBackgroundColor = Color(hex: "CDE3D3").opacity(0.85) // Translucent mint
+    static let headerBlurColor = Color(hex: "CDE3D3").opacity(0.95)
+    
+    // Context colors
+    static let mileageColor = Color(hex: "FF6B35") // Orange for mileage 🚗
+    static let tipsColor = Color(hex: "FFD700") // Gold for tips 💰
+    static let visitsColor = Color(hex: "4A90E2") // Blue for visits 🐾
+    static let incomeColor = Color(hex: "32CD32") // Green for income
+    
+    // Context colors structure
+    static let contextColors = (
+        mileage: mileageColor,
+        tips: tipsColor,
+        visits: visitsColor,
+        income: incomeColor
+    )
+    
     // MARK: - Design Tokens
     
     // Typography
@@ -63,11 +81,13 @@ struct Config {
     static let bodyLargeFontSize: CGFloat = 16
     static let headingFontSize: CGFloat = 20
     static let largeTitleFontSize: CGFloat = 24
+    static let largeFontSize: CGFloat = 32
     static let captionFontSize: CGFloat = 12
     
     // Spacing
     static let cardPadding: CGFloat = 12 // Reduced from 16 for more compact design
     static let sectionSpacing: CGFloat = 8
+    static let smallSpacing: CGFloat = 4
     static let itemSpacing: CGFloat = 6
     static let largeSpacing: CGFloat = 16
     
@@ -75,6 +95,7 @@ struct Config {
     static let cardCornerRadius: CGFloat = 12
     static let buttonCornerRadius: CGFloat = 8
     static let chipCornerRadius: CGFloat = 6
+    static let smallCornerRadius: CGFloat = 4
     
     // Shadows
     static let cardShadowRadius: CGFloat = 4 // Soft 4dp shadow
@@ -154,4 +175,49 @@ extension View {
                     .fill(color.opacity(0.1))
             )
     }
+    
+    func translucentHeader() -> some View {
+        self
+            .background(
+                ZStack {
+                    // Blur background
+                    RoundedRectangle(cornerRadius: Config.cardCornerRadius)
+                        .fill(Config.headerBlurColor)
+                        .background(.ultraThinMaterial)
+                    
+                    // Subtle shadow for depth
+                    RoundedRectangle(cornerRadius: Config.cardCornerRadius)
+                        .fill(Config.shadowColor)
+                        .offset(y: 1)
+                }
+            )
+    }
+    
+    func contextIcon(_ emoji: String, color: Color) -> some View {
+        HStack(spacing: 4) {
+            Text(emoji)
+                .font(.system(size: 14))
+            self
+                .foregroundColor(color)
+        }
+        .font(.system(size: Config.captionFontSize, weight: .medium))
+        .padding(.horizontal, 8)
+        .padding(.vertical, 4)
+        .background(
+            RoundedRectangle(cornerRadius: Config.chipCornerRadius)
+                .fill(color.opacity(0.1))
+        )
+    }
 } 
+
+// MARK: - Context Icons Helper
+struct ContextIcons {
+    static let mileage = "🚗"
+    static let tips = "💰"
+    static let visits = "🐾"
+    static let income = "💵"
+    static let reminders = "⏰"
+    static let analytics = "📊"
+    static let route = "🗺️"
+    static let ai = "🤖"
+}

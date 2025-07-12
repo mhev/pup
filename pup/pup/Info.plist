@@ -10,5 +10,13 @@
 			<string></string>
 		</dict>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Martina needs location access to track your mileage for business trips and provide route optimization.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Martina needs location access to track your mileage for business trips and provide route optimization.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>location</string>
+	</array>
 </dict>
 </plist>
