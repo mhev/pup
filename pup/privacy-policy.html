@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hev LLC - Privacy Policy</title>
+    <meta name="description" content="Privacy policy for Hev LLC apps including Pathsight, GymLens, and Eggsplore.">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #34a853;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --gray: #5f6368;
+            --light-gray: #dadce0;
+            
+            /* App-specific colors */
+            --pathsight: #147579;
+            --gymlens: #4CAF50;
+            --eggsplore: #00bcd4;
+            --promptdoctor: #6200EA;
+            --martina: #2E674E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .content {
+            padding: 3rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        p, ul, ol {
+            margin-bottom: 1.5rem;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .date {
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--light-gray);
+        }
+        
+        /* App-specific styling */
+        .app-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .app-pathsight {
+            border-left: 4px solid var(--pathsight);
+        }
+        
+        .app-gymlens {
+            border-left: 4px solid var(--gymlens);
+        }
+        
+        .app-eggsplore {
+            border-left: 4px solid var(--eggsplore);
+        }
+        
+        .app-promptdoctor {
+            border-left: 4px solid var(--promptdoctor);
+        }
+        
+        .app-martina {
+            border-left: 4px solid var(--martina);
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .app-icon {
+            font-size: 1.8rem;
+            margin-right: 0.75rem;
+        }
+        
+        .app-title {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--dark);
+        }
+        
+        /* Navigation tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--light-gray);
+            margin-bottom: 2rem;
+        }
+        
+        .tab {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab:hover:not(.active) {
+            color: var(--dark);
+            border-bottom-color: var(--light-gray);
+        }
+        
+        /* Utility classes */
+        .mb-1 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+        
+        .mt-2 {
+            margin-top: 2rem;
+        }
+        
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Page navigation */
+        .page-nav {
+            position: sticky;
+            top: 70px;
+            background-color: white;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            z-index: 90;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+        
+        .page-nav-inner {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 1rem;
+        }
+        
+        .page-nav a {
+            flex: 0 0 auto;
+            padding: 0.5rem 1.5rem;
+            white-space: nowrap;
+            font-weight: 500;
+            color: var(--gray);
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        
+        .page-nav a:hover {
+            background-color: var(--light-gray);
+            color: var(--dark);
+            text-decoration: none;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 500;
+            margin: 1rem 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .app-section {
+                padding: 1.5rem;
+            }
+            
+            .page-nav-inner {
+                justify-content: space-between;
+            }
+            
+            .page-nav a {
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">Hev LLC</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/#about">About</a>
+                    <a href="/#products">Products</a>
+                    <a href="/support">Support</a>
+                    <a href="/#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <h1>Privacy Policy</h1>
+            
+            <div class="page-nav">
+                <div class="page-nav-inner">
+                    <a href="#overview">Overview</a>
+                    <a href="#pathsight">Pathsight</a>
+                    <a href="#gymlens">GymLens</a>
+                    <a href="#eggsplore">Eggsplore</a>
+                    <a href="#promptdoctor">Prompt Doctor</a>
+                    <a href="#martina">Martina</a>
+                    <a href="/terms-of-service">Terms of Service</a>
+                    <a href="/cookie-policy">Cookie Policy</a>
+                </div>
+            </div>
+            
+            <!-- Main Privacy Policy -->
+            <section id="overview" class="app-section">
+                <h2>Privacy Policy Overview 🔒</h2>
+                <p class="date">Last Updated: May 1st, 2025</p>
+                
+                <p>Hev LLC ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our applications: Pathsight, GymLens, Eggsplore, Prompt Doctor, and Martina (collectively, the "Services").</p>
+                
+                <p>Please read this Privacy Policy carefully. By accessing or using our Services, you acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy. If you do not agree with our policies and practices, please do not use our Services.</p>
+                
+                <h3>1. Information We Collect</h3>
+                
+                <h4>1.1 Information You Provide to Us</h4>
+                <p>We may collect information that you provide directly to us, including:</p>
+                <ul>
+                    <li><strong>Account Information:</strong> When you create an account, we may collect your name, email address, phone number (Eggsplore), and password.</li>
+                    <li><strong>Profile Information:</strong> Your profile picture, preferences, and settings.</li>
+                    <li><strong>Transaction Information:</strong> If you purchase a subscription, we collect payment information, billing address, and transaction history.</li>
+                    <li><strong>User Content:</strong> 
+                        <ul>
+                            <li>Pathsight: Route history, saved locations</li>
+                            <li>GymLens: Equipment photos, workout history</li>
+                            <li>Eggsplore: Listings, ratings, messages</li>
+                            <li>Martina: Pet information, visit schedules, client data</li>
+                        </ul>
+                    </li>
+                    <li><strong>Communication:</strong> Messages, emails, or other communications between you and Hev LLC.</li>
+                </ul>
+                
+                <h4>1.2 Information We Collect Automatically</h4>
+                <p>When you use our Services, we automatically collect certain information, including:</p>
+                <ul>
+                    <li><strong>Usage Data:</strong> How you interact with our Services, including which features you use.</li>
+                    <li><strong>Device Information:</strong> Information about your device, including device type, operating system, unique device identifiers, mobile network information, and IP address.</li>
+                    <li><strong>Location Data:</strong> With your permission, we collect location data to:
+                        <ul>
+                            <li>Pathsight: Provide navigation services, route planning, and weather information</li>
+                            <li>GymLens: For regional content customization (optional)</li>
+                            <li>Eggsplore: Show nearby listings and enable location-based services</li>
+                            <li>Martina: Enable route optimization, navigation to client locations, and home base management</li>
+                        </ul>
+                    </li>
+                    <li><strong>Cookies and Similar Technologies:</strong> We use cookies and similar tracking technologies to track activity on our Services and hold certain information.</li>
+                </ul>
+                
+                <h3>2. How We Use Your Information</h3>
+                <p>We use the information we collect for various purposes, including to:</p>
+                <ul>
+                    <li>Provide, maintain, and improve our Services.</li>
+                    <li>Process transactions and send related information, including confirmations, receipts, and user experience surveys.</li>
+                    <li>Create and maintain your account, personalize your experience, and deliver content tailored to your interests.</li>
+                    <li>Respond to your comments, questions, and requests, and provide customer service.</li>
+                    <li>Send technical notices, updates, security alerts, and administrative messages.</li>
+                    <li>Monitor and analyze usage patterns and trends to enhance the user experience.</li>
+                    <li>Detect, investigate, and prevent fraudulent transactions and other illegal activities, and protect the rights and property of Hev LLC and others.</li>
+                    <li>Comply with legal obligations.</li>
+                </ul>
+                
+                <h3>3. Sharing Your Information</h3>
+                <p>We may share your information in the following circumstances:</p>
+                <ul>
+                    <li>With service providers who perform services on our behalf, such as payment processing, data analysis, email delivery, and hosting services.</li>
+                    <li>With business partners to offer you certain products, services, or promotions.</li>
+                    <li>In connection with, or during negotiations of, any merger, sale of company assets, financing, or acquisition of all or a portion of our business by another company.</li>
+                    <li>If we believe disclosure is necessary to comply with any applicable law, regulation, legal process, or governmental request.</li>
+                    <li>To enforce our agreements, policies, and Terms of Service.</li>
+                    <li>To protect the rights, property, and safety of Hev LLC, our users, or others.</li>
+                    <li>With your consent or at your direction.</li>
+                </ul>
+                
+                <h3>4. Data Security</h3>
+                <p>We have implemented appropriate technical and organizational security measures designed to protect the security of any personal information we process. All data is encrypted in transit and at rest using industry-standard measures. However, please also remember that we cannot guarantee that the internet itself is 100% secure. Although we will do our best to protect your personal information, transmission of personal information to and from our Services is at your own risk.</p>
+                
+                <h3>5. Your Rights</h3>
+                <p>Depending on your location, you may have certain rights regarding your personal information, including:</p>
+                <ul>
+                    <li>Access: You may request access to the personal information we have about you.</li>
+                    <li>Correction: You may request that we correct inaccurate or incomplete information about you.</li>
+                    <li>Deletion: You may request that we delete your personal information.</li>
+                    <li>Restriction: You may request that we restrict the processing of your information.</li>
+                    <li>Data Portability: You may request a copy of the information you have provided to us in a structured, commonly used, and machine-readable format.</li>
+                    <li>Objection: You may object to our processing of your personal information.</li>
+                    <li>Withdrawal of Consent: You may withdraw your consent at any time where we relied on your consent to process your personal information.</li>
+                </ul>
+                <p>To exercise these rights, please contact us at privacy@hevllc.com.</p>
+                
+                <h3>6. Third-Party Services</h3>
+                <p>Our Services use various third-party services:</p>
+                <ul>
+                    <li><strong>Pathsight:</strong> Google Gemini API (AI route generation), OpenWeather API (weather information), Apple Maps (navigation)</li>
+                    <li><strong>GymLens:</strong> Apple StoreKit (purchase management), CloudKit (optional sync)</li>
+                    <li><strong>Eggsplore:</strong> Firebase (authentication, storage, database), Apple StoreKit (in-app purchases)</li>
+                    <li><strong>Prompt Doctor:</strong> Apple StoreKit (purchase management), OpenAI API (prompt analysis)</li>
+                    <li><strong>Martina:</strong> Google Gemini API (route optimization), Apple Maps (navigation), iCloud (data backup)</li>
+                </ul>
+                
+                <h3>7. Children's Privacy</h3>
+                <p>Our Services are not directed to children under the age of 13. We do not knowingly collect personal information from children under 13. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact us so that we can take necessary actions.</p>
+                
+                <h3>8. Changes to this Privacy Policy</h3>
+                <p>We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date at the top. You are advised to review this Privacy Policy periodically for any changes.</p>
+                
+                <div class="highlight mb-2">
+                    <p>For complete details about our terms of service, please visit our <a href="terms-of-service.html">Terms of Service</a> page.</p>
+                </div>
+                
+                <h3>9. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+                <p>
+                    Hev LLC<br>
+                    2400 E 6th Ste<br>
+                    Austin, TX 78702<br>
+                    United States<br>
+                    Email: michael@hevllc.com<br>
+                </p>
+            </section>
+            
+            <!-- App-specific privacy sections -->
+            <section id="pathsight" class="app-section app-pathsight">
+                <div class="app-header">
+                    <div class="app-icon">🧭</div>
+                    <h2 class="app-title">Pathsight Privacy Details</h2>
+                </div>
+                
+                <p>This section provides specific privacy details for Pathsight, our AI-powered navigation app.</p>
+                
+                <h3>Data Collection Specific to Pathsight</h3>
+                <ul>
+                    <li><strong>Location Data:</strong> With your permission, we collect precise location data to provide navigation services, route planning, and nearby points of interest information.</li>
+                    <li><strong>Route History:</strong> We store your route history to enable you to access your saved routes.</li>
+                    <li><strong>Search Queries:</strong> Your destination searches and route preferences.</li>
+                    <li><strong>AI Interaction:</strong> We process your inputs with Google Gemini to generate route suggestions and navigation instructions.</li>
+                    <li><strong>Weather Data:</strong> We access weather information via third-party services based on your location to provide weather-informed routing.</li>
+                </ul>
+                
+                <h3>How We Use Pathsight Data</h3>
+                <ul>
+                    <li>Generate personalized navigation routes</li>
+                    <li>Provide real-time travel insights and directions</li>
+                    <li>Offer weather-informed routing suggestions</li>
+                    <li>Save your route history for convenient access</li>
+                    <li>Improve route algorithms and AI suggestions</li>
+                </ul>
+                
+                <h3>Third-Party Services for Pathsight</h3>
+                <ul>
+                    <li><strong>Google Gemini API:</strong> Used for AI-powered route generation and direction creation</li>
+                    <li><strong>OpenWeather API:</strong> Provides weather information along routes</li>
+                    <li><strong>Apple Maps:</strong> Used for map visualization and navigation</li>
+                    <li><strong>Apple StoreKit:</strong> Manages subscription purchases</li>
+                </ul>
+                
+                <div class="highlight">
+                    <p><strong>Safety Note:</strong> Pathsight cannot guarantee 100% safety or accuracy of route suggestions. Always prioritize official traffic regulations and exercise caution when traveling.</p>
+                </div>
+            </section>
+            
+            <section id="gymlens" class="app-section app-gymlens">
+                <div class="app-header">
+                    <div class="app-icon">💪</div>
+                    <h2 class="app-title">GymLens Privacy Details</h2>
+                </div>
+                
+                <p>This section provides specific privacy details for GymLens, our AI-powered fitness app.</p>
+                
+                <h3>Data Collection Specific to GymLens</h3>
+                <ul>
+                    <li><strong>Equipment Photos:</strong> Images you take or upload of workout equipment for analysis. These are processed to generate workout recommendations.</li>
+                    <li><strong>Fitness Preferences:</strong> Your fitness goals, limitations, and equipment preferences.</li>
+                    <li><strong>Workout History:</strong> For subscribers, we store your workout history to track progress.</li>
+                    <li><strong>Device Information:</strong> Information about your device to optimize app performance.</li>
+                </ul>
+                
+                <h3>How We Use GymLens Data</h3>
+                <ul>
+                    <li>Analyze equipment photos to identify available gear</li>
+                    <li>Generate personalized workout routines</li>
+                    <li>Track workout history for progress monitoring</li>
+                    <li>Improve exercise recognition algorithms</li>
+                    <li>Enhance workout recommendations based on user feedback</li>
+                </ul>
+                
+                <h3>Image Processing and Storage</h3>
+                <p>Images are processed securely for the purpose of equipment recognition. By default, uploaded images are not stored long-term unless you explicitly save a workout. Images are never shared with third parties or used for purposes other than workout generation and app improvement.</p>
+                
+                <h3>Third-Party Services for GymLens</h3>
+                <ul>
+                    <li><strong>Apple StoreKit:</strong> Manages subscription purchases</li>
+                    <li><strong>CloudKit:</strong> Optional synchronization of workouts across your devices</li>
+                </ul>
+                
+                <div class="highlight">
+                    <p><strong>Health Disclaimer:</strong> GymLens is not a medical device and does not store or process protected health information ("PHI") as defined by HIPAA. Always consult with healthcare professionals before starting any new exercise program.</p>
+                </div>
+            </section>
+            
+            <section id="eggsplore" class="app-section app-eggsplore">
+                <div class="app-header">
+                    <div class="app-icon">🥚</div>
+                    <h2 class="app-title">Eggsplore Privacy Details</h2>
+                </div>
+                
+                <p>This section provides specific privacy details for Eggsplore, our local egg marketplace app.</p>
+                
+                <h3>Data Collection Specific to Eggsplore</h3>
+                <ul>
+                    <li><strong>Phone Number:</strong> Used for account verification via SMS code.</li>
+                    <li><strong>Profile Information:</strong> Your name, location, and any profile details you choose to share.</li>
+                    <li><strong>Listing Data:</strong> Information about eggs you list for sale (descriptions, photos, prices, etc.).</li>
+                    <li><strong>Location Data:</strong> Used to show nearby listings and facilitate local transactions.</li>
+                    <li><strong>Messages:</strong> Communication between buyers and sellers.</li>
+                    <li><strong>Ratings and Reviews:</strong> Feedback about sellers and buyers.</li>
+                </ul>
+                
+                <h3>How We Use Eggsplore Data</h3>
+                <ul>
+                    <li>Verify your identity through phone number verification</li>
+                    <li>Display your listings to potential buyers</li>
+                    <li>Show you listings from sellers in your area</li>
+                    <li>Facilitate communication between buyers and sellers</li>
+                    <li>Process premium subscription payments</li>
+                </ul>
+                
+                <h3>Phone Number Privacy</h3>
+                <p>Your phone number is used for account verification and is not publicly displayed to other users unless you choose to include it in your listings or share it directly with other users. We use industry-standard security measures to protect your phone number.</p>
+                
+                <h3>Third-Party Services for Eggsplore</h3>
+                <ul>
+                    <li><strong>Firebase:</strong> Used for authentication, storage, and database services</li>
+                    <li><strong>Apple StoreKit:</strong> Manages subscription purchases</li>
+                </ul>
+                
+                <div class="highlight">
+                    <p><strong>Transaction Safety:</strong> While we provide the platform for users to connect, we are not responsible for the quality of eggs or transactions between users. We recommend following food safety guidelines and exercising caution when meeting other users for transactions.</p>
+                </div>
+            </section>
+            
+            <section id="promptdoctor" class="app-section app-promptdoctor">
+                <div class="app-header">
+                    <div class="app-icon">🤖</div>
+                    <h2 class="app-title">Prompt Doctor Privacy Details</h2>
+                </div>
+                
+                <p>This section provides specific privacy details for Prompt Doctor, our AI prompt optimization tool.</p>
+                
+                <h3>Data Collection Specific to Prompt Doctor</h3>
+                <ul>
+                    <li><strong>Prompt Entries:</strong> The AI prompts you submit for analysis and optimization.</li>
+                    <li><strong>Prompt History:</strong> Your previously analyzed prompts are stored to help you track improvements.</li>
+                    <li><strong>Prompt Preferences:</strong> Your custom settings for prompt generation and analysis.</li>
+                    <li><strong>Device Information:</strong> Basic information about your device to optimize app performance.</li>
+                </ul>
+                
+                <h3>How We Use Prompt Doctor Data</h3>
+                <ul>
+                    <li>Analyze your AI prompts to provide quality and effectiveness feedback</li>
+                    <li>Generate suggestions to improve your prompts</li>
+                    <li>Save your prompt history for future reference</li>
+                    <li>Improve our prompt analysis algorithms</li>
+                    <li>Track the effectiveness of suggestions through user feedback</li>
+                </ul>
+                
+                <h3>Prompt Data Security</h3>
+                <p>We understand that your prompts may contain sensitive information or ideas. Your prompts are transmitted using secure encryption methods and are only processed for the purpose of providing analysis and suggestions. We do not use your prompts to train our models or share them with third parties without your explicit consent.</p>
+                
+                <h3>Third-Party Services for Prompt Doctor</h3>
+                <ul>
+                    <li><strong>Apple StoreKit:</strong> Manages subscription and one-time purchases</li>
+                    <li><strong>OpenAI API:</strong> Used for advanced prompt analysis and optimization</li>
+                </ul>
+                
+                <h3>Data Deletion Options</h3>
+                <p>You can delete your prompt history at any time from within the app settings. For paid users, we offer an option to automatically delete prompts after analysis for maximum privacy.</p>
+                
+                <div class="highlight">
+                    <p><strong>Important Note:</strong> Prompt Doctor does not have access to your conversations with other AI systems such as ChatGPT or Claude. We only analyze the prompts you explicitly submit to our app.</p>
+                </div>
+            </section>
+            
+            <section id="martina" class="app-section app-martina">
+                <div class="app-header">
+                    <div class="app-icon">🐾</div>
+                    <h2 class="app-title">Martina Privacy Details</h2>
+                </div>
+                
+                <p>This section provides specific privacy details for Martina, our professional pet care scheduling and route management app.</p>
+                
+                <h3>Data Collection Specific to Martina</h3>
+                <ul>
+                    <li><strong>Pet Information:</strong> Names, service types, and care requirements for pets you serve.</li>
+                    <li><strong>Client Data:</strong> Client names, addresses, contact information, and service history.</li>
+                    <li><strong>Visit Schedules:</strong> Appointment times, service types, duration, and completion status.</li>
+                    <li><strong>Location Data:</strong> Client addresses, your home base location, and route information for navigation and optimization.</li>
+                    <li><strong>Business Analytics:</strong> Visit completion metrics, route efficiency data, and service statistics.</li>
+                    <li><strong>Route History:</strong> Optimized routes, travel patterns, and navigation preferences.</li>
+                </ul>
+                
+                <h3>How We Use Martina Data</h3>
+                <ul>
+                    <li>Schedule and organize pet care visits</li>
+                    <li>Generate optimized routes for efficient travel between clients</li>
+                    <li>Store client and pet information for ongoing service relationships</li>
+                    <li>Track visit completion and service history</li>
+                    <li>Provide navigation assistance to client locations</li>
+                    <li>Enable data export for business record-keeping</li>
+                    <li>Improve route optimization algorithms</li>
+                </ul>
+                
+                <h3>Professional Data Protection</h3>
+                <p>We understand that as a professional pet care provider, you handle sensitive client information. All data is stored locally on your device with optional iCloud backup. Client information, pet details, and business data are never shared with third parties or used for marketing purposes. You maintain complete control over your business data.</p>
+                
+                <h3>Location Privacy</h3>
+                <p>Location data is used exclusively for navigation and route optimization purposes. We do not track your location when the app is not in use. Your home base location and client addresses are stored securely and are only accessed when providing routing services.</p>
+                
+                <h3>Third-Party Services for Martina</h3>
+                <ul>
+                    <li><strong>Google Gemini API:</strong> Used for AI-powered route optimization and scheduling suggestions</li>
+                    <li><strong>Apple Maps:</strong> Provides navigation services and real-time traffic information</li>
+                    <li><strong>iCloud:</strong> Optional backup and synchronization of your data across devices</li>
+                    <li><strong>Apple StoreKit:</strong> Manages app purchases (when applicable)</li>
+                </ul>
+                
+                <h3>Data Export and Portability</h3>
+                <p>You can export your scheduling data, client information, and visit history at any time through the app's export functionality. This ensures you always have access to your business records and can transfer data to other systems as needed.</p>
+                
+                <div class="highlight">
+                    <p><strong>Business Continuity:</strong> Martina is designed to support your professional pet care business. Your data remains under your control, with local storage and optional cloud backup ensuring your business information is always accessible and secure.</p>
+                </div>
+            </section>
+            
+            <div class="app-section">
+                <h2>Additional Resources</h2>
+                <p>For more information about our apps, please visit the following resources:</p>
+                <ul>
+                    <li><a href="/terms-of-service" class="cta-button">Terms of Service</a></li>
+                    <li><a href="/">Return to Hev LLC Homepage</a></li>
+                    <li><a href="/#contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 Hev LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling for page navigation
+        document.querySelectorAll('.page-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

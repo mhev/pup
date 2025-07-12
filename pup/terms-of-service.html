@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hev LLC - Terms of Service</title>
+    <meta name="description" content="Terms of service for Hev LLC apps including Pathsight, GymLens, and Eggsplore.">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #34a853;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --gray: #5f6368;
+            --light-gray: #dadce0;
+            
+            /* App-specific colors */
+            --pathsight: #147579;
+            --gymlens: #4CAF50;
+            --eggsplore: #00bcd4;
+            --promptdoctor: #6200EA;
+            --martina: #2E674E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .content {
+            padding: 3rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        h4 {
+            font-size: 1.2rem;
+            margin: 1.2rem 0 0.8rem;
+            color: var(--dark);
+        }
+        
+        p, ul, ol {
+            margin-bottom: 1.5rem;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .date {
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--light-gray);
+        }
+        
+        /* App-specific styling */
+        .app-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .app-pathsight {
+            border-left: 4px solid var(--pathsight);
+        }
+        
+        .app-gymlens {
+            border-left: 4px solid var(--gymlens);
+        }
+        
+        .app-eggsplore {
+            border-left: 4px solid var(--eggsplore);
+        }
+        
+        .app-promptdoctor {
+            border-left: 4px solid var(--promptdoctor);
+        }
+        
+        .app-martina {
+            border-left: 4px solid var(--martina);
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .app-icon {
+            font-size: 1.8rem;
+            margin-right: 0.75rem;
+        }
+        
+        .app-title {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--dark);
+        }
+        
+        /* Utility classes */
+        .mb-1 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+        
+        .mt-2 {
+            margin-top: 2rem;
+        }
+        
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .warning {
+            background-color: #fff8e1;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .severe-warning {
+            background-color: #ffebee;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #f44336;
+        }
+        
+        /* Page navigation */
+        .page-nav {
+            position: sticky;
+            top: 70px;
+            background-color: white;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            z-index: 90;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+        
+        .page-nav-inner {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 1rem;
+        }
+        
+        .page-nav a {
+            flex: 0 0 auto;
+            padding: 0.5rem 1.5rem;
+            white-space: nowrap;
+            font-weight: 500;
+            color: var(--gray);
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        
+        .page-nav a:hover {
+            background-color: var(--light-gray);
+            color: var(--dark);
+            text-decoration: none;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 500;
+            margin: 1rem 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-card a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .product-card-content {
+            padding: 1.25rem;
+        }
+        
+        .product-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .product-card p {
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+        }
+        
+        .app-store-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .app-store-badge:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .app-section {
+                padding: 1.5rem;
+            }
+            
+            .page-nav-inner {
+                justify-content: space-between;
+            }
+            
+            .page-nav a {
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">Hev LLC</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/#about">About</a>
+                    <a href="/#products">Products</a>
+                    <a href="/support">Support</a>
+                    <a href="/#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <h1>Terms of Service</h1>
+            
+            <div class="page-nav">
+                <div class="page-nav-inner">
+                    <a href="#overview">General Terms</a>
+                    <a href="#pathsight">Pathsight</a>
+                    <a href="#gymlens">GymLens</a>
+                    <a href="#eggsplore">Eggsplore</a>
+                    <a href="#promptdoctor">Prompt Doctor</a>
+                    <a href="#martina">Martina</a>
+                    <a href="/privacy-policy">Privacy Policy</a>
+                    <a href="/cookie-policy">Cookie Policy</a>
+                </div>
+            </div>
+            
+            <!-- Main Terms of Service -->
+            <section id="overview" class="app-section">
+                <h2>General Terms of Service 📜</h2>
+                <p class="date">Last Updated: May 1st, 2025</p>
+                
+                <div class="warning mb-2">
+                    <strong>PLEASE READ CAREFULLY:</strong> These Terms contain important information about your legal rights, including a binding arbitration clause and class action waiver.
+                </div>
+                
+                <p>Please read these Terms of Service ("Terms") carefully before using Pathsight, GymLens, Eggsplore, Prompt Doctor, or Martina mobile applications (collectively, the "Services") operated by Hev LLC ("us", "we", or "our").</p>
+                
+                <p>Your access to and use of the Services is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users, and others who access or use the Services.</p>
+                
+                <p>By accessing or using the Services, you agree to be bound by these Terms. If you disagree with any part of the terms, then you may not access the Services.</p>
+                
+                <h3>1. Use of the Services</h3>
+                
+                <h4>1.1 Eligibility</h4>
+                <p>You must be at least 13 years old to use the Services. By using the Services, you represent and warrant that you are at least 13 years of age and that your use of the Services does not violate any applicable laws or regulations.</p>
+                
+                <h4>1.2 Account Registration</h4>
+                <p>When you create an account with us, you must provide accurate, complete, and current information at all times. Failure to do so constitutes a breach of the Terms, which may result in immediate termination of your account.</p>
+                
+                <h4>1.3 Account Security</h4>
+                <p>You are responsible for safeguarding the password or credentials that you use to access the Services and for any activities or actions under your account. You agree not to disclose your password to any third party. You must notify us immediately upon becoming aware of any breach of security or unauthorized use of your account.</p>
+                
+                <h4>1.4 Acceptable Use</h4>
+                <p>You agree not to use the Services:</p>
+                <ul>
+                    <li>In any way that violates any applicable national or international law or regulation.</li>
+                    <li>To transmit, or procure the sending of, any advertising or promotional material, including any "junk mail", "chain letter," "spam," or any other similar solicitation.</li>
+                    <li>To impersonate or attempt to impersonate Hev LLC, a Hev LLC employee, another user, or any other person or entity.</li>
+                    <li>To engage in any other conduct that restricts or inhibits anyone's use or enjoyment of the Services, or which, as determined by us, may harm Hev LLC or users of the Services or expose them to liability.</li>
+                </ul>
+                
+                <h3>2. Subscription and Payments</h3>
+                
+                <h4>2.1 Subscription Options</h4>
+                <p>We offer both free and paid subscription options for our Services. The features available to you will depend on the subscription tier you select. Each app has its own subscription options:</p>
+                <ul>
+                    <li><strong>Pathsight:</strong> Monthly ($3.99) and Annual ($19.99) with a 3-day free trial</li>
+                    <li><strong>GymLens:</strong> Monthly ($4.99) and Annual ($24.99) with a 3-day free trial</li>
+                    <li><strong>Eggsplore:</strong> Monthly and Annual Premium subscriptions</li>
+                    <li><strong>Prompt Doctor:</strong> Annual ($9.99) and Lifetime Access ($14.99 one-time payment)</li>
+                    <li><strong>Martina:</strong> Professional subscription plans for pet care businesses</li>
+                </ul>
+                
+                <h4>2.2 Payment Terms</h4>
+                <p>If you choose a paid subscription, you agree to pay all fees applicable to your subscription plan. We may change the fees for any subscription service at any time, but any price changes will apply to your subscription only after prior notice to you.</p>
+                
+                <h4>2.3 Automatic Renewal</h4>
+                <p>Unless you cancel your subscription before the end of the applicable subscription period, your subscription will automatically renew, and you authorize us to charge your payment method for another subscription period at the then-current rate.</p>
+                
+                <h4>2.4 Cancellation</h4>
+                <p>You may cancel your subscription at any time through your Apple ID account settings or by contacting us. If you cancel your subscription, you will not receive a refund for the current subscription period, but your subscription will remain active until the end of the current billing cycle.</p>
+                
+                <h4>2.5 Refunds</h4>
+                <p>Refunds will be issued in accordance with applicable laws and at our discretion. Generally, no refunds will be provided for partial subscription periods or for unused portions of a subscription.</p>
+                
+                <h3>3. Intellectual Property</h3>
+                <p>The Services and their original content, features, and functionality are and will remain the exclusive property of Hev LLC and its licensors. The Services are protected by copyright, trademark, and other laws of both the United States and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Hev LLC.</p>
+                
+                <h3>4. User Content</h3>
+                <p>When you submit, upload, store, send, or receive content to or through our Services, you give Hev LLC a worldwide license to use, host, store, reproduce, modify, create derivative works, communicate, publish, publicly perform, publicly display, and distribute such content. The rights you grant in this license are for the limited purpose of operating, promoting, and improving our Services.</p>
+                
+                <h3>5. Disclaimers</h3>
+                
+                <h4>5.1 "As Is" and "As Available"</h4>
+                <p>Your use of the Services is at your sole risk. The Services are provided on an "AS IS" and "AS AVAILABLE" basis. The Services are provided without warranties of any kind, whether express or implied, including, but not limited to, implied warranties of merchantability, fitness for a particular purpose, non-infringement, or course of performance.</p>
+                
+                <h4>5.2 No Guarantee of Accuracy</h4>
+                <p>Hev LLC and its subsidiaries, affiliates, and its licensors do not warrant that a) the Services will function uninterrupted, secure or available at any particular time or location; b) any errors or defects will be corrected; c) the Services are free of viruses or other harmful components; or d) the results of using the Services will meet your requirements.</p>
+                
+                <h3>6. Limitation of Liability</h3>
+                <p>In no event shall Hev LLC, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from:</p>
+                <ul>
+                    <li>Your access to or use of or inability to access or use the Services.</li>
+                    <li>Any conduct or content of any third party on the Services.</li>
+                    <li>Any content obtained from the Services.</li>
+                    <li>Unauthorized access, use, or alteration of your transmissions or content.</li>
+                </ul>
+                <p>To the maximum extent permitted by applicable law, our total liability to you for any damages shall not exceed the greater of (a) the amounts you paid to us in the six (6) months preceding the event giving rise to the liability or (b) $50.00 USD.</p>
+                
+                <h3>7. Indemnification</h3>
+                <p>You agree to defend, indemnify, and hold harmless Hev LLC and its licensees and licensors, and their employees, contractors, agents, officers, and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees) arising from your use of and access to the Services.</p>
+                
+                <h3>8. Binding Arbitration and Class Action Waiver</h3>
+                <p>Any dispute, controversy or claim arising out of or relating to these Terms or the Services shall be resolved by binding arbitration in accordance with the rules of the American Arbitration Association. The arbitration will be conducted in San Francisco, California, unless you and Hev LLC agree otherwise. Each party will be responsible for paying any filing, administrative and arbitrator fees in accordance with AAA rules.</p>
+                
+                <p>YOU AND HEV LLC AGREE THAT EACH MAY BRING CLAIMS AGAINST THE OTHER ONLY IN YOUR OR ITS INDIVIDUAL CAPACITY, AND NOT AS A PLAINTIFF OR CLASS MEMBER IN ANY PURPORTED CLASS OR REPRESENTATIVE PROCEEDING. Further, unless both you and Hev LLC agree otherwise, the arbitrator may not consolidate more than one person's claims with your claims, and may not otherwise preside over any form of a representative or class proceeding.</p>
+                
+                <h3>9. Governing Law</h3>
+                <p>These Terms shall be governed and construed in accordance with the laws of the United States of America and the State of California, without regard to its conflict of law provisions.</p>
+                <p>Our failure to enforce any right or provision of these Terms will not be considered a waiver of those rights. If any provision of these Terms is held to be invalid or unenforceable by a court, the remaining provisions of these Terms will remain in effect.</p>
+                
+                <h3>10. Changes to Terms</h3>
+                <p>We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.</p>
+                <p>By continuing to access or use our Services after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the Services.</p>
+                
+                <div class="highlight mb-2">
+                    <p>For complete details about our data practices, please visit our <a href="privacy-policy.html">Privacy Policy</a> page.</p>
+                </div>
+                
+                <h3>11. Contact Us</h3>
+                <p>If you have any questions about these Terms, please contact us at:</p>
+                <p>
+                    Hev LLC<br>
+                    2400 E 6th St<br>
+                    Austin, TX 78702<br>
+                    United States<br>
+                    Email: michael@hevllc.com<br>
+                </p>
+            </section>
+            
+            <!-- App-specific terms sections -->
+            <section id="pathsight" class="app-section app-pathsight">
+                <div class="app-header">
+                    <div class="app-icon">🧭</div>
+                    <h2 class="app-title">Pathsight Terms</h2>
+                </div>
+                
+                <p>This section provides specific terms for Pathsight, our AI-powered navigation app.</p>
+                
+                <h3>App-Specific Terms for Pathsight</h3>
+                
+                <h4>1. AI-Generated Content</h4>
+                <p>Routes, directions, and suggestions provided by Pathsight are AI-generated and provided "as is". While we strive for accuracy, we cannot guarantee that the information provided will always be correct, complete, or up-to-date. You should always verify critical information with official sources.</p>
+                
+                <h4>2. Safety Warning</h4>
+                <p>The use of Pathsight while operating a vehicle may be distracting and may increase the risk of an accident. You should always follow traffic rules, road signs, and local regulations, which take precedence over any navigation instructions provided by Pathsight. We strongly recommend:</p>
+                <ul>
+                    <li>Setting up your route before starting your journey</li>
+                    <li>Using hands-free accessories if you need to interact with the app while driving</li>
+                    <li>Having a passenger operate the app when possible</li>
+                    <li>Pulling over safely if you need to make changes to your route</li>
+                </ul>
+                
+                <h4>3. No Guarantee of Accuracy</h4>
+                <p>Pathsight relies on various data sources, including maps, traffic information, and other third-party data. We make no guarantee regarding the accuracy, reliability, or completeness of this data. Navigation suggestions, estimated travel times, and route information should be used as general guidance only.</p>
+                
+                <h4>4. Weather Information</h4>
+                <p>Weather data is provided for informational purposes only and should not be relied upon for critical weather-related decisions. Always consult official weather services for critical weather information.</p>
+                
+                <h4>5. Subscription Terms</h4>
+                <p>Pathsight offers the following subscription options:</p>
+                <ul>
+                    <li>Monthly: $3.99 per month after a 3-day free trial</li>
+                    <li>Annual: $19.99 per year (approximately $1.67 per month) after a 3-day free trial</li>
+                </ul>
+                <p>Both plans include unlimited routes, Gemini-powered directions, and route history.</p>
+                
+                <div class="warning">
+                    <strong>Important:</strong> Pathsight cannot guarantee 100% safety or accuracy. Always exercise caution, follow official traffic regulations, and use your own judgment when traveling.
+                </div>
+            </section>
+            
+            <section id="gymlens" class="app-section app-gymlens">
+                <div class="app-header">
+                    <div class="app-icon">💪</div>
+                    <h2 class="app-title">GymLens Terms</h2>
+                </div>
+                
+                <p>This section provides specific terms for GymLens, our AI-powered fitness app.</p>
+                
+                <h3>App-Specific Terms for GymLens</h3>
+                
+                <div class="severe-warning mb-2">
+                    <h4>COMPREHENSIVE LIABILITY WAIVER AND ASSUMPTION OF RISK</h4>
+                    <p><strong>PLEASE READ CAREFULLY:</strong> By using GymLens, you expressly acknowledge and agree that:</p>
+                    <ol>
+                        <li>Exercise and fitness activities involve inherent risks that may result in personal injury, illness, permanent disability, or death.</li>
+                        <li>You voluntarily assume ALL risks associated with using GymLens and performing any exercises or fitness activities suggested by the app, whether known or unknown.</li>
+                        <li>Hev LLC, its owners, officers, employees, agents, and affiliates are NOT responsible for any injuries, accidents, illnesses, damages, or losses that may occur from using GymLens or following any exercise routines, suggestions, or guidance provided through the app.</li>
+                        <li>You hereby RELEASE, WAIVE, DISCHARGE, and COVENANT NOT TO SUE Hev LLC from any and all liability, claims, demands, actions, and causes of action whatsoever arising out of or related to any loss, damage, injury, or death that may be sustained by you while using the app or performing exercises suggested by the app.</li>
+                        <li>This waiver extends to any misrepresentations, negligence, or failures related to equipment identification, exercise recommendations, or fitness guidance provided by the app's AI technology.</li>
+                        <li>You acknowledge that Hev LLC is not providing medical advice and the app is not a substitute for professional medical or fitness advice, diagnosis, or treatment.</li>
+                    </ol>
+                    <p>If you do not agree to these terms, you should not use GymLens.</p>
+                </div>
+                
+                <h4>1. Medical Disclaimer</h4>
+                <p>GymLens content is for informational purposes only and not medical or professional fitness advice. Always consult a qualified healthcare or fitness professional before starting any new exercise program, especially if you have health concerns or medical conditions. Reliance on any Content provided by GymLens is solely at your own risk.</p>
+                
+                <h4>2. Exercise Safety</h4>
+                <p>When using GymLens, you agree to:</p>
+                <ul>
+                    <li>Use the app safely and within your physical limits</li>
+                    <li>Consult healthcare professionals before starting new workouts</li>
+                    <li>Ensure proper form and equipment use</li>
+                    <li>Stop any exercise causing pain or discomfort</li>
+                    <li>Use equipment according to manufacturer guidelines</li>
+                </ul>
+                
+                <h4>3. Image Processing</h4>
+                <p>When you upload images of workout equipment to GymLens:</p>
+                <ul>
+                    <li>Images are processed securely for the purpose of equipment recognition</li>
+                    <li>By default, images are not stored long-term unless you explicitly save a workout</li>
+                    <li>Images are never shared with third parties or used for purposes other than workout generation and app improvement</li>
+                </ul>
+                
+                <h4>4. User Responsibility</h4>
+                <p>You are solely responsible for:</p>
+                <ul>
+                    <li>Ensuring you are physically capable of performing suggested exercises</li>
+                    <li>Using proper form and technique during workouts</li>
+                    <li>Ensuring equipment is properly set up and safe to use</li>
+                    <li>Modifying or skipping exercises that are beyond your capability or comfort level</li>
+                    <li>Any injuries or adverse effects that may result from using the app or performing suggested exercises</li>
+                </ul>
+                
+                <h4>5. Subscription Terms</h4>
+                <p>GymLens offers the following subscription options:</p>
+                <ul>
+                    <li>Monthly: $4.99 per month after a 3-day free trial</li>
+                    <li>Annual: $24.99 per year (approximately $2.08 per month) after a 3-day free trial</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>Important:</strong> GymLens is not a medical device and does not provide medical advice. Always exercise caution and consult with healthcare professionals before starting any new fitness regimen.
+                </div>
+            </section>
+            
+            <section id="eggsplore" class="app-section app-eggsplore">
+                <div class="app-header">
+                    <div class="app-icon">🥚</div>
+                    <h2 class="app-title">Eggsplore Terms</h2>
+                </div>
+                
+                <p>This section provides specific terms for Eggsplore, our local egg marketplace app.</p>
+                
+                <h3>App-Specific Terms for Eggsplore</h3>
+                
+                <h4>1. User Content</h4>
+                <p>You are responsible for any content you post through Eggsplore, including listings, messages, ratings, and reviews. You agree not to post content that:</p>
+                <ul>
+                    <li>Is false, misleading, or deceptive</li>
+                    <li>Violates any laws or regulations</li>
+                    <li>Infringes on the rights of others</li>
+                    <li>Promotes illegal or harmful activities</li>
+                    <li>Is offensive, abusive, or inappropriate</li>
+                </ul>
+                <p>We reserve the right to remove any content that violates these terms.</p>
+                
+                <h4>2. Transactions</h4>
+                <p>Eggsplore is a platform that connects buyers and sellers of eggs. We are not responsible for:</p>
+                <ul>
+                    <li>The quality, safety, or legality of items offered</li>
+                    <li>The accuracy of listings</li>
+                    <li>The ability of buyers to pay for items</li>
+                    <li>The ability of sellers to deliver items</li>
+                </ul>
+                <p>All transactions are between users, and we do not guarantee any transactions. Use caution when arranging meetups or transactions.</p>
+                
+                <h4>3. Food Safety</h4>
+                <p>When selling or buying eggs through Eggsplore:</p>
+                <ul>
+                    <li>Follow all applicable laws and regulations regarding the sale of food products</li>
+                    <li>Ensure eggs are fresh, clean, and properly handled</li>
+                    <li>Provide accurate information about egg production methods (e.g., free-range, organic)</li>
+                    <li>As a buyer, inspect eggs before purchase and follow proper food safety guidelines</li>
+                </ul>
+                
+                <h4>4. Phone Number Verification</h4>
+                <p>Eggsplore requires phone number verification for account creation. Your phone number:</p>
+                <ul>
+                    <li>Is used for account verification via SMS code</li>
+                    <li>Is not publicly displayed to other users unless you choose to include it in your listings</li>
+                    <li>Is protected using industry-standard security measures</li>
+                </ul>
+                
+                <h4>5. Premium Features</h4>
+                <p>Eggsplore offers Premium subscriptions with features including:</p>
+                <ul>
+                    <li>Featured listings (appearing at the top of search results)</li>
+                    <li>Push notifications for new listings</li>
+                    <li>Premium badge on your profile</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>Important:</strong> While we provide the platform for users to connect, we are not responsible for transactions between users. Always exercise caution when meeting others for transactions and follow food safety guidelines.
+                </div>
+            </section>
+            
+            <section id="promptdoctor" class="app-section app-promptdoctor">
+                <div class="app-header">
+                    <div class="app-icon">🤖</div>
+                    <h2 class="app-title">Prompt Doctor Terms</h2>
+                </div>
+                
+                <p>This section provides specific terms for Prompt Doctor, our AI prompt optimization tool.</p>
+                
+                <h3>App-Specific Terms for Prompt Doctor</h3>
+                
+                <h4>1. AI-Generated Recommendations</h4>
+                <p>Prompt improvement suggestions and analysis provided by Prompt Doctor are AI-generated and provided "as is". While we strive for effectiveness, we cannot guarantee that our recommendations will always improve your results with other AI systems. The effectiveness of optimized prompts may vary depending on:</p>
+                <ul>
+                    <li>The specific AI system you're using</li>
+                    <li>Version changes to third-party AI models</li>
+                    <li>The complexity of your original prompt</li>
+                    <li>The specific task you're trying to accomplish</li>
+                </ul>
+                
+                <h4>2. No Guaranteed Results</h4>
+                <p>Prompt Doctor does not guarantee:</p>
+                <ul>
+                    <li>That optimized prompts will always produce better results than your original prompts</li>
+                    <li>That optimized prompts will work equally well across all AI systems</li>
+                    <li>Specific improvements in accuracy, relevance, or any other metric</li>
+                    <li>That optimized prompts will result in any particular outcome or response from third-party AI systems</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>Important:</strong> Prompt improvements may not be game-changing or revolutionary. They are intended to incrementally improve your prompts based on best practices and current understanding of AI systems. Results may vary.
+                </div>
+                
+                <h4>3. Prompt Content</h4>
+                <p>You are solely responsible for the content of your prompts and any results generated by using them with third-party AI systems. Prompt Doctor:</p>
+                <ul>
+                    <li>Does not generate responses to your prompts, only suggestions for improving them</li>
+                    <li>Is not responsible for any responses generated by third-party AI systems using your optimized prompts</li>
+                    <li>Does not monitor or control the content you submit beyond our terms of service</li>
+                </ul>
+                <p>You agree not to submit prompts that violate our acceptable use policy or that promote harmful, illegal, or unethical activities.</p>
+                
+                <h4>4. Privacy and Data Security</h4>
+                <p>When you submit prompts to Prompt Doctor:</p>
+                <ul>
+                    <li>Your prompts are processed securely for the purpose of analysis and improvement</li>
+                    <li>Your prompts are stored in your prompt history until you delete them or until automatic deletion occurs (if enabled)</li>
+                    <li>Your prompts are not shared with third parties without your explicit consent</li>
+                    <li>We do not use your prompts to train our models without your consent</li>
+                </ul>
+                
+                <h4>5. Third-Party AI Systems</h4>
+                <p>Prompt Doctor is designed to help you optimize prompts for third-party AI systems like ChatGPT, Claude, and others. We are not affiliated with these systems and have no control over:</p>
+                <ul>
+                    <li>Their availability, functionality, or performance</li>
+                    <li>Changes to their interfaces, capabilities, or limitations</li>
+                    <li>Their terms of service or content policies</li>
+                    <li>How they process or respond to prompts</li>
+                </ul>
+                <p>You are responsible for complying with the terms of service of any third-party AI systems you use with prompts optimized by Prompt Doctor.</p>
+                
+                <h4>6. Subscription Terms</h4>
+                <p>Prompt Doctor offers the following purchase options:</p>
+                <ul>
+                    <li>Annual: $9.99 per year (approximately $0.83 per month)</li>
+                    <li>Lifetime Access: $14.99 one-time payment</li>
+                </ul>
+                
+                <div class="warning">
+                    <strong>Important:</strong> Prompt Doctor is a tool for improving AI prompts and does not guarantee results with any specific AI system. Always verify your prompts work as expected in your target AI system.
+                </div>
+            </section>
+            
+            <section id="martina" class="app-section app-martina">
+                <div class="app-header">
+                    <div class="app-icon">🐕</div>
+                    <h2 class="app-title">Martina Terms</h2>
+                </div>
+                
+                <p>This section provides specific terms for Martina, our professional pet care scheduling and route optimization app.</p>
+                
+                <h3>App-Specific Terms for Martina</h3>
+                
+                <div class="warning mb-2">
+                    <h4>PROFESSIONAL SERVICE DISCLAIMER</h4>
+                    <p><strong>PLEASE READ CAREFULLY:</strong> By using Martina, you acknowledge that:</p>
+                    <ol>
+                        <li>Martina is a scheduling and route optimization tool for pet care professionals and is not a substitute for professional veterinary care or judgment.</li>
+                        <li>You are solely responsible for the safety and well-being of all animals in your care.</li>
+                        <li>Hev LLC is not responsible for any injuries, accidents, illnesses, damages, or losses involving pets under your care while using Martina.</li>
+                        <li>You maintain full professional liability and insurance coverage for your pet care services.</li>
+                        <li>Route optimization and scheduling suggestions are provided for efficiency purposes only and should not compromise animal safety or care quality.</li>
+                    </ol>
+                </div>
+                
+                <h4>1. Professional Use Only</h4>
+                <p>Martina is designed for professional pet care service providers including dog walkers, pet sitters, and related businesses. By using Martina, you represent that you are:</p>
+                <ul>
+                    <li>A licensed professional pet care provider (where applicable)</li>
+                    <li>Operating in compliance with all local, state, and federal laws regarding pet care services</li>
+                    <li>Maintaining appropriate business licenses and insurance coverage</li>
+                    <li>Following industry best practices for animal care and safety</li>
+                </ul>
+                
+                <h4>2. Client Data and Privacy</h4>
+                <p>When managing client information through Martina:</p>
+                <ul>
+                    <li>You are responsible for obtaining proper consent from clients for data collection and processing</li>
+                    <li>You must comply with all applicable privacy laws and regulations</li>
+                    <li>Client data is encrypted and securely stored, but you remain the data controller</li>
+                    <li>You may export your data at any time and are responsible for data retention policies</li>
+                    <li>Pet photos and information should only be collected with explicit client consent</li>
+                </ul>
+                
+                <h4>3. Route Optimization and Location Services</h4>
+                <p>Martina's AI-powered route optimization features:</p>
+                <ul>
+                    <li>Provide suggestions for efficient travel routes between client locations</li>
+                    <li>Use Google Maps integration and Google Gemini API for optimization</li>
+                    <li>Should not override your professional judgment regarding pet care timing or safety</li>
+                    <li>Are provided "as is" and may not account for all real-world factors (traffic, weather, etc.)</li>
+                    <li>Require location permissions to function properly</li>
+                </ul>
+                
+                <h4>4. Scheduling and Service Management</h4>
+                <p>When using Martina's scheduling features:</p>
+                <ul>
+                    <li>You are responsible for confirming all appointments with clients</li>
+                    <li>Service times and types must accurately reflect the care provided</li>
+                    <li>You must maintain accurate records of services rendered</li>
+                    <li>Emergency contact information should be kept current and accessible</li>
+                    <li>You are responsible for backup plans in case of app unavailability</li>
+                </ul>
+                
+                <h4>5. Professional Liability</h4>
+                <p>You acknowledge and agree that:</p>
+                <ul>
+                    <li>Martina is a business tool and does not provide pet care services</li>
+                    <li>You maintain full professional responsibility for all animal care decisions</li>
+                    <li>You carry appropriate professional liability insurance</li>
+                    <li>You will not rely solely on the app for emergency situations</li>
+                    <li>You maintain traditional backup methods for critical business operations</li>
+                </ul>
+                
+                <h4>6. Data Export and Business Continuity</h4>
+                <p>Martina provides data export functionality to ensure business continuity:</p>
+                <ul>
+                    <li>You can export client information, visit history, and route data</li>
+                    <li>Regular backups to iCloud are available with your consent</li>
+                    <li>You are responsible for maintaining backup records of critical business data</li>
+                    <li>Service interruptions should not prevent you from accessing essential client information</li>
+                </ul>
+                
+                <h4>7. Third-Party Integrations</h4>
+                <p>Martina integrates with third-party services for enhanced functionality:</p>
+                <ul>
+                    <li><strong>Google Maps:</strong> For navigation and location services</li>
+                    <li><strong>Google Gemini API:</strong> For AI-powered route optimization</li>
+                    <li><strong>Apple Maps:</strong> For alternative mapping services</li>
+                    <li><strong>iCloud:</strong> For data backup and synchronization</li>
+                </ul>
+                <p>These integrations are subject to their respective terms of service and privacy policies.</p>
+                
+                <h4>8. Subscription and Professional Features</h4>
+                <p>Martina offers professional subscription plans with features including:</p>
+                <ul>
+                    <li>Unlimited client and pet profiles</li>
+                    <li>Advanced route optimization</li>
+                    <li>Export and backup functionality</li>
+                    <li>Priority customer support</li>
+                    <li>Business reporting and analytics</li>
+                </ul>
+                
+                <h4>9. Emergency Situations</h4>
+                <p>In case of pet emergencies:</p>
+                <ul>
+                    <li>Contact emergency veterinary services immediately</li>
+                    <li>Notify pet owners according to your service agreements</li>
+                    <li>Do not rely on Martina for emergency communications</li>
+                    <li>Maintain emergency contact information outside of the app</li>
+                    <li>Follow your established emergency protocols</li>
+                </ul>
+                
+                <div class="severe-warning">
+                    <strong>CRITICAL REMINDER:</strong> Martina is a business management tool. The safety and well-being of animals in your care always takes priority over app features or route optimization suggestions. Always use your professional judgment and training when making decisions about animal care.
+                </div>
+            </section>
+            
+            <div class="app-section">
+                <h2>Our Products</h2>
+                <p>Hev LLC develops innovative apps to help you navigate your world, stay fit, and connect with your community.</p>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/pathsight-ai-travel-agent/id6740884888" target="_blank">
+                            <div class="product-card-content">
+                                <h3>Pathsight 🧭</h3>
+                                <p>AI-powered travel agent for personalized route guidance and travel insights.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/gymlens/id6744256958" target="_blank">
+                            <div class="product-card-content">
+                                <h3>GymLens 💪</h3>
+                                <p>Photo to workout AI generator. Snap gym equipment and get personalized routines.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/eggsplore/id6739508309" target="_blank">
+                            <div class="product-card-content">
+                                <h3>Eggsplore 🥚</h3>
+                                <p>Local egg marketplace connecting buyers with fresh, farm-to-table eggs.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/promptdoctor/id6742541036" target="_blank">
+                            <div class="product-card-content">
+                                <h3>Prompt Doctor 🤖</h3>
+                                <p>AI prompt optimization tool to help you get better responses from AI systems.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>Additional Resources</h3>
+                    <p>For more information about our apps, please visit the following resources:</p>
+                    <ul>
+                        <li><a href="/privacy-policy" class="cta-button">Privacy Policy</a></li>
+                        <li><a href="/">Return to Hev LLC Homepage</a></li>
+                        <li><a href="/#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 Hev LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling for page navigation
+        document.querySelectorAll('.page-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

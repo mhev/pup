@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hev LLC - Support & FAQs</title>
+    <meta name="description" content="Support information and frequently asked questions for Hev LLC apps including Pathsight, GymLens, and Eggsplore.">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #34a853;
+            --dark: #202124;
+            --light: #f8f9fa;
+            --gray: #5f6368;
+            --light-gray: #dadce0;
+            
+            /* App-specific colors */
+            --pathsight: #147579;
+            --gymlens: #4CAF50;
+            --eggsplore: #00bcd4;
+            --promptdoctor: #6200EA;
+            --martina: #2E674E;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        .content {
+            padding: 3rem 0;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-dark);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 0.5rem;
+        }
+        
+        h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        h3 {
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--primary);
+        }
+        
+        p, ul, ol {
+            margin-bottom: 1.5rem;
+        }
+        
+        ul, ol {
+            margin-left: 2rem;
+        }
+        
+        li {
+            margin-bottom: 0.5rem;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .date {
+            font-style: italic;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--light-gray);
+        }
+        
+        /* App-specific styling */
+        .app-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+        
+        .app-pathsight {
+            border-left: 4px solid var(--pathsight);
+        }
+        
+        .app-gymlens {
+            border-left: 4px solid var(--gymlens);
+        }
+        
+        .app-eggsplore {
+            border-left: 4px solid var(--eggsplore);
+        }
+        
+        .app-promptdoctor {
+            border-left: 4px solid var(--promptdoctor);
+        }
+        
+        .app-martina {
+            border-left: 4px solid var(--martina);
+        }
+        
+        .app-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .app-icon {
+            font-size: 1.8rem;
+            margin-right: 0.75rem;
+        }
+        
+        .app-title {
+            font-size: 1.8rem;
+            margin: 0;
+            color: var(--dark);
+        }
+        
+        /* FAQ styling */
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+            padding-bottom: 1rem;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .faq-answer {
+            color: var(--gray);
+        }
+        
+        /* Utility classes */
+        .mb-1 {
+            margin-bottom: 1rem;
+        }
+        
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+        
+        .mt-2 {
+            margin-top: 2rem;
+        }
+        
+        .highlight {
+            background-color: #f0f7ff;
+            padding: 1.25rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Page navigation */
+        .page-nav {
+            position: sticky;
+            top: 70px;
+            background-color: white;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            z-index: 90;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+        }
+        
+        .page-nav-inner {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 1rem;
+        }
+        
+        .page-nav a {
+            flex: 0 0 auto;
+            padding: 0.5rem 1.5rem;
+            white-space: nowrap;
+            font-weight: 500;
+            color: var(--gray);
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+        
+        .page-nav a:hover {
+            background-color: var(--light-gray);
+            color: var(--dark);
+            text-decoration: none;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 500;
+            margin: 1rem 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+            text-decoration: none;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-card a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .product-card-content {
+            padding: 1.25rem;
+        }
+        
+        .product-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .product-card p {
+            color: var(--gray);
+            margin-bottom: 0.75rem;
+        }
+        
+        .app-store-badge {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+        
+        .app-store-badge:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Responsive styling */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .app-section {
+                padding: 1.5rem;
+            }
+            
+            .page-nav-inner {
+                justify-content: space-between;
+            }
+            
+            .page-nav a {
+                padding: 0.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="/" class="logo">Hev LLC</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/#about">About</a>
+                    <a href="/#products">Products</a>
+                    <a href="/#contact">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="content">
+            <h1>Support & FAQs</h1>
+            
+            <div class="page-nav">
+                <div class="page-nav-inner">
+                    <a href="#overview">Overview</a>
+                    <a href="#pathsight">Pathsight</a>
+                    <a href="#gymlens">GymLens</a>
+                    <a href="#eggsplore">Eggsplore</a>
+                    <a href="#promptdoctor">Prompt Doctor</a>
+                    <a href="#martina">Martina</a>
+                    <a href="/privacy-policy">Privacy Policy</a>
+                    <a href="/terms-of-service">Terms of Service</a>
+                    <a href="/cookie-policy">Cookie Policy</a>
+                </div>
+            </div>
+            
+            <!-- Overview Section -->
+            <section id="overview" class="app-section">
+                <h2>Support Overview</h2>
+                <p>Welcome to Hev LLC Support. Here you'll find answers to frequently asked questions about our applications. If you can't find the answer you're looking for, please contact us at <a href="mailto:support@hevllc.com">support@hevllc.com</a>.</p>
+                
+                <p>Our apps are designed to enhance everyday life through innovative technology:</p>
+                <ul>
+                    <li><strong>Pathsight</strong> - AI-powered navigation assistant</li>
+                    <li><strong>GymLens</strong> - Photo to workout AI generator</li>
+                    <li><strong>Eggsplore</strong> - Local egg marketplace</li>
+                    <li><strong>Prompt Doctor</strong> - AI prompt optimization tool</li>
+                    <li><strong>Martina</strong> - Pet care scheduling and route management</li>
+                </ul>
+                
+                <p>Select an app from the menu above to view specific FAQs.</p>
+            </section>
+            
+            <!-- Pathsight FAQs -->
+            <section id="pathsight" class="app-section app-pathsight">
+                <div class="app-header">
+                    <div class="app-icon">🧭</div>
+                    <h2 class="app-title">Pathsight Support</h2>
+                </div>
+                
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What is Pathsight?</p>
+                    <p class="faq-answer">Pathsight is an AI-powered route-planning and navigation assistant delivering conversational directions and travel insights via Google Gemini, OpenWeather, and Apple Maps.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do subscriptions work?</p>
+                    <p class="faq-answer">Enjoy a 3-day free trial, then choose:</p>
+                    <ul>
+                        <li>Monthly — $3.99</li>
+                        <li>Yearly — $19.99 (~$1.67/mo)</li>
+                    </ul>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How does AI route planning work?</p>
+                    <p class="faq-answer">Enter start and end points; our AI crafts natural-language directions and context-aware insights.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Can I save routes?</p>
+                    <p class="faq-answer">Yes—subscribers can bookmark and revisit favorite routes.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Why do suggestions vary?</p>
+                    <p class="faq-answer">Routes adapt to factors like traffic, weather, and user preferences. Enable "Main-route-only" mode for consistency.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How accurate is the AI?</p>
+                    <p class="faq-answer">We strive for precision, but AI may err. Always confirm critical details (closures, regulations) before traveling.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Does Pathsight guarantee safety?</p>
+                    <p class="faq-answer">No. Pathsight cannot guarantee 100% safety. You remain fully responsible for decisions and personal safety.</p>
+                </div>
+                
+                <div class="highlight">
+                    <h3>Subscription Information</h3>
+                    <ul>
+                        <li><strong>Monthly:</strong> $3.99 / month</li>
+                        <li><strong>Yearly:</strong> $19.99 / year</li>
+                        <li><strong>Free Trial:</strong> 3 days — cancel ≥24 h before it ends to avoid charges.</li>
+                    </ul>
+                    <p>Your Apple ID will be charged after trial. Manage or cancel in App Store settings at least 24h before renewal.</p>
+                </div>
+                
+                <div class="mt-2">
+                    <a href="https://apps.apple.com/us/app/pathsight-ai-travel-agent/id6740884888" target="_blank" class="cta-button">Download on the App Store</a>
+                </div>
+            </section>
+            
+            <!-- GymLens FAQs -->
+            <section id="gymlens" class="app-section app-gymlens">
+                <div class="app-header">
+                    <div class="app-icon">💪</div>
+                    <h2 class="app-title">GymLens Support</h2>
+                </div>
+                
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What is GymLens?</p>
+                    <p class="faq-answer">GymLens is an AI-powered fitness app that analyzes photos of workout equipment to generate personalized routines based on available gear and your goals.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How does the subscription work?</p>
+                    <p class="faq-answer">We offer:</p>
+                    <ul>
+                        <li>3-day free trial with full access</li>
+                        <li>$4.99 per month after trial</li>
+                        <li>$24.99 per year (~$2.08/mo) after trial</li>
+                    </ul>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I use GymLens?</p>
+                    <p class="faq-answer">Take/upload a clear photo of your equipment, select targets or limitations, and let GymLens craft your workout.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What gear is recognized?</p>
+                    <p class="faq-answer">Dumbbells, barbells, kettlebells, bands, machines, benches, cardio gear, and more.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How accurate are the suggestions?</p>
+                    <p class="faq-answer">AI follows fitness best practices but is guidance only. Always consult a professional for personalized advice.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Can I save workouts?</p>
+                    <p class="faq-answer">Yes—subscribers can save and track workouts over time.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Why do suggestions vary?</p>
+                    <p class="faq-answer">Variation avoids plateaus by rotating exercises for the same equipment.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What if equipment isn't recognized?</p>
+                    <p class="faq-answer">Ensure good lighting and a clear frame. You can also add notes manually before generating.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How is my privacy protected?</p>
+                    <p class="faq-answer">Images are processed securely, not stored long-term unless you save a workout, and never shared externally.</p>
+                </div>
+                
+                <div class="highlight">
+                    <h3>Subscription Information</h3>
+                    <ul>
+                        <li><strong>Monthly:</strong> $4.99 / month (3-day free trial)</li>
+                        <li><strong>Annual:</strong> $24.99 / year (3-day free trial)</li>
+                    </ul>
+                    <p>Your Apple ID will be charged after trial. Manage or cancel in App Store settings at least 24h before renewal.</p>
+                </div>
+                
+                <div class="mt-2">
+                    <a href="https://apps.apple.com/us/app/gymlens/id6744256958" target="_blank" class="cta-button">Download on the App Store</a>
+                </div>
+            </section>
+            
+            <!-- Eggsplore FAQs -->
+            <section id="eggsplore" class="app-section app-eggsplore">
+                <div class="app-header">
+                    <div class="app-icon">🥚</div>
+                    <h2 class="app-title">Eggsplore Support</h2>
+                </div>
+                
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I create an account?</p>
+                    <p class="faq-answer">To create an account, simply open Eggsplore and enter your phone number. You'll receive a verification code via SMS. Once verified, you can complete your profile by adding your name and location.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I post a listing?</p>
+                    <p class="faq-answer">To post a listing, tap the "+" tab at the bottom of the screen. Fill in your listing details including title, price, quantity, egg type, and description. You can also add photos and set your location. Your phone number must be verified before posting.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I contact a seller?</p>
+                    <p class="faq-answer">When viewing a listing, tap the "Contact Seller" button. You'll be able to message the seller directly through the app to discuss the purchase.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I rate a seller?</p>
+                    <p class="faq-answer">After interacting with a seller, you can rate them by visiting their listing and tapping the "Rate Seller" button. You can provide a rating out of 5 stars and leave a comment about your experience.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I edit or delete my listing?</p>
+                    <p class="faq-answer">To edit or delete your listing, navigate to the listing detail page. If you're the owner, you'll see "Edit" and "Delete" buttons at the bottom of the screen.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I filter listings?</p>
+                    <p class="faq-answer">Use the filters at the top of the home screen to sort by distance, price, or newest. You can also filter by egg type and other characteristics like organic feed and free-range.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What are Premium features?</p>
+                    <p class="faq-answer">Premium users get the ability to feature their listings, receive push notifications for new listings to get early access, and display a premium badge on their Profile.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I get Premium?</p>
+                    <p class="faq-answer">Premium features can be purchased through the App Store.</p>
+                </div>
+                
+                <div class="highlight">
+                    <h3>Subscription Information</h3>
+                    <p>Eggsplore offers two subscription options:</p>
+                    <ul>
+                        <li><strong>Monthly Premium:</strong> Billed monthly, cancel anytime</li>
+                        <li><strong>Annual Premium:</strong> Save 37% with annual billing, cancel anytime</li>
+                    </ul>
+                    <p>Important subscription terms:</p>
+                    <ul>
+                        <li>Payment will be charged to your Apple ID account at confirmation of purchase</li>
+                        <li>Subscription automatically renews unless auto-renewal is turned off at least 24 hours before the end of the current period</li>
+                        <li>Your account will be charged for renewal within 24 hours prior to the end of the current period</li>
+                        <li>You can manage and cancel your subscriptions by going to your account settings on the App Store after purchase</li>
+                    </ul>
+                </div>
+                
+                <div class="mt-2">
+                    <a href="https://apps.apple.com/us/app/eggsplore/id6739508309" target="_blank" class="cta-button">Download on the App Store</a>
+                </div>
+            </section>
+            
+            <!-- Prompt Doctor FAQs -->
+            <section id="promptdoctor" class="app-section app-promptdoctor">
+                <div class="app-header">
+                    <div class="app-icon">🤖</div>
+                    <h2 class="app-title">Prompt Doctor Support</h2>
+                </div>
+                
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What is Prompt Doctor?</p>
+                    <p class="faq-answer">Prompt Doctor is an AI-powered tool that helps you optimize your prompts for AI systems like ChatGPT, Claude, and other large language models. It analyzes your prompts and suggests improvements to get better, more accurate responses.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do subscriptions work?</p>
+                    <p class="faq-answer">Prompt Doctor offers:</p>
+                    <ul>
+                        <li>Yearly Premium — $9.99</li>
+                        <li>Lifetime Access — $14.99 (one-time payment)</li>
+                    </ul>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What features are included?</p>
+                    <p class="faq-answer">Prompt Doctor includes prompt analysis, clarity score, suggested improvements, example responses, and prompt templates for premium users. The app also offers prompt history and the ability to save favorite prompts.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How does the prompt analysis work?</p>
+                    <p class="faq-answer">Our AI analyzes your prompt for clarity, specificity, context, tone, and structure. It then provides a score and actionable recommendations to improve your prompt's effectiveness.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Does Prompt Doctor access my conversations with other AI systems?</p>
+                    <p class="faq-answer">No. Prompt Doctor only analyzes the prompts you explicitly submit to our app. We never access your conversations with ChatGPT, Claude, or any other AI platforms.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Can I use Prompt Doctor for any type of AI system?</p>
+                    <p class="faq-answer">Yes! While we optimize for popular systems like ChatGPT and Claude, our recommendations work for virtually any text-based AI system that accepts prompts.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How accurate are the suggestions?</p>
+                    <p class="faq-answer">Our suggestions are based on best practices and extensive testing, but results may vary depending on the specific AI system you're using. We continually improve our recommendations based on user feedback.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How is my data protected?</p>
+                    <p class="faq-answer">We take privacy seriously. Your prompts are processed securely and not shared with third parties. Premium users can opt to have their data deleted after analysis for maximum privacy.</p>
+                </div>
+                
+                <div class="highlight">
+                    <h3>Subscription Information</h3>
+                    <ul>
+                        <li><strong>Yearly:</strong> $9.99 / year</li>
+                        <li><strong>Lifetime:</strong> $14.99 (one-time payment)</li>
+                    </ul>
+                    <p>Your Apple ID will be charged at confirmation of purchase. Yearly subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. Manage subscriptions in App Store settings.</p>
+                </div>
+                
+                <div class="mt-2">
+                    <a href="https://apps.apple.com/us/app/promptdoctor/id6742541036" target="_blank" class="cta-button">Download on the App Store</a>
+                </div>
+            </section>
+            
+            <!-- Martina FAQs -->
+            <section id="martina" class="app-section app-martina">
+                <div class="app-header">
+                    <div class="app-icon">🐾</div>
+                    <h2 class="app-title">Martina Support</h2>
+                </div>
+                
+                <h3>Frequently Asked Questions</h3>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What is Martina?</p>
+                    <p class="faq-answer">Martina is a professional pet care scheduling and route management app designed for dog walkers, pet sitters, and pet care services. It helps you organize visits, optimize routes, and manage your clients efficiently.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I add a new visit?</p>
+                    <p class="faq-answer">Tap the floating action button (+ icon) in the bottom-right corner of your schedule. Fill in the pet's information, select the service type (walk, sitting, drop-in, overnight), set the time, and enter the address. The app will automatically geocode the location.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How does route optimization work?</p>
+                    <p class="faq-answer">Martina uses AI-powered route optimization to suggest the most efficient travel order for your daily visits. The system considers your home base location, visit times, and traffic patterns to minimize travel time and fuel costs.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I complete a visit?</p>
+                    <p class="faq-answer">Swipe left on any visit card or tap the visit to open the detail view, then tap "Complete." You'll see a confirmation dialog to prevent accidental completions. Completed visits are visually marked and move to your completion history.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Can I manage multiple clients and pets?</p>
+                    <p class="faq-answer">Yes! Martina supports unlimited clients and pets. Each visit is linked to a specific pet and owner, with full contact information and service history. You can view all your saved clients in the Profile section.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How do I use the map features?</p>
+                    <p class="faq-answer">The map view shows all your visits as clustered markers, with your home base clearly marked. Tap any marker to see visit details and get directions. The app integrates with Apple Maps for turn-by-turn navigation and real-time traffic updates.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What are the different service types?</p>
+                    <p class="faq-answer">Martina supports four main service types: Walk (outdoor exercise), Sitting (in-home care), Drop-in (quick check-ins), and Overnight (extended stays). Each type has its own color coding and icon for easy identification.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">How is my data stored and protected?</p>
+                    <p class="faq-answer">All your data is stored locally on your device and backed up to your iCloud account. Client information, visit history, and routes are never shared with third parties. You maintain full control over your business data.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">Can I export my visit data?</p>
+                    <p class="faq-answer">Yes! Martina includes export functionality in the Profile section. You can export your schedule data for record-keeping, invoicing, or transferring to other business systems.</p>
+                </div>
+                
+                <div class="faq-item">
+                    <p class="faq-question">What if I need help with the app?</p>
+                    <p class="faq-answer">Contact our support team at support@hevllc.com for assistance. We're here to help you get the most out of Martina and grow your pet care business.</p>
+                </div>
+                
+                <div class="highlight">
+                    <h3>App Information</h3>
+                    <p>Martina is currently in development and will be available soon on the App Store. Key features include:</p>
+                    <ul>
+                        <li><strong>Smart Scheduling:</strong> Time-grouped visits with easy management</li>
+                        <li><strong>Route Optimization:</strong> AI-powered travel planning</li>
+                        <li><strong>Client Management:</strong> Comprehensive pet and owner profiles</li>
+                        <li><strong>Map Integration:</strong> Real-time navigation and traffic updates</li>
+                        <li><strong>Data Export:</strong> Professional reporting and record-keeping</li>
+                    </ul>
+                </div>
+                
+                <div class="mt-2">
+                    <a href="#" class="cta-button">Coming Soon to App Store</a>
+                </div>
+            </section>
+            
+            <!-- Our Products Section -->
+            <div class="app-section">
+                <h2>Our Products</h2>
+                <p>Hev LLC develops innovative apps to help you navigate your world, stay fit, and connect with your community.</p>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/pathsight-ai-travel-agent/id6740884888" target="_blank">
+                            <div class="product-card-content">
+                                <h3>Pathsight 🧭</h3>
+                                <p>AI-powered travel agent for personalized route guidance and travel insights.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/gymlens/id6744256958" target="_blank">
+                            <div class="product-card-content">
+                                <h3>GymLens 💪</h3>
+                                <p>Photo to workout AI generator. Snap gym equipment and get personalized routines.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/eggsplore/id6739508309" target="_blank">
+                            <div class="product-card-content">
+                                <h3>Eggsplore 🥚</h3>
+                                <p>Local egg marketplace connecting buyers with fresh, farm-to-table eggs.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <a href="https://apps.apple.com/us/app/promptdoctor/id6742541036" target="_blank">
+                            <div class="product-card-content">
+                                <h3>Prompt Doctor 🤖</h3>
+                                <p>AI prompt optimization tool to help you get better responses from AI systems.</p>
+                                <span class="app-store-badge">View on App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="product-card">
+                        <a href="#martina">
+                            <div class="product-card-content">
+                                <h3>Martina 🐾</h3>
+                                <p>Professional pet care scheduling and route management for dog walkers and pet sitters.</p>
+                                <span class="app-store-badge">Coming Soon</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="highlight">
+                    <h3>Additional Resources</h3>
+                    <p>For more information about our apps, please visit the following resources:</p>
+                    <ul>
+                        <li><a href="/privacy-policy" class="cta-button">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service" class="cta-button">Terms of Service</a></li>
+                        <li><a href="/">Return to Hev LLC Homepage</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2025 Hev LLC. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Smooth scrolling for page navigation
+        document.querySelectorAll('.page-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html> 

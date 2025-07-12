@@ -18,16 +18,25 @@ A SwiftUI app that helps dog walkers and pet sitters optimize their daily routes
    - Visit [Google AI Studio](https://makersuite.google.com/app/apikey)
    - Create a new API key for Gemini
 
-2. **Add Your API Key**:
-   - Open `pup/Config/Config.swift`
-   - Replace `YOUR_GEMINI_API_KEY_HERE` with your actual API key:
-   ```swift
-   static let geminiAPIKey = "your_actual_api_key_here"
+2. **Set Up Secure API Key**:
+   - Copy `pup/Config/APIKeys.plist.template` to `pup/Config/APIKeys.plist`
+   - Open `pup/Config/APIKeys.plist` and replace `YOUR_GEMINI_API_KEY_HERE` with your actual API key:
+   ```xml
+   <key>GeminiAPIKey</key>
+   <string>your_actual_api_key_here</string>
    ```
+   - **Important**: The `APIKeys.plist` file is automatically excluded from Git to keep your API key secure
 
 3. **Build and Run**:
-   - The app will automatically use Gemini AI for route optimization
+   - The app will automatically load your API key from the secure configuration
    - If the API fails, it falls back to basic time-based optimization
+
+### For Team Development
+
+When sharing this project:
+- Never commit your actual `APIKeys.plist` file 
+- Each developer should create their own `APIKeys.plist` from the template
+- The `.gitignore` file already excludes the sensitive configuration
 
 ## How It Works
 

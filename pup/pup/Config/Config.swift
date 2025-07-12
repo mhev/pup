@@ -4,9 +4,41 @@ import SwiftUI
 struct Config {
     // MARK: - API Configuration
     
-    /// Add your Google Gemini API key here
+    /// Google Gemini API key loaded from secure configuration
     /// Get your free API key at: https://makersuite.google.com/app/apikey
-    static let geminiAPIKey = "AIzaSyBjgqsPWquP8d159a9NOEwm69zGJ9MFFmU"
+    static let geminiAPIKey: String = {
+        // First try to load from a secure config file
+        if let path = Bundle.main.path(forResource: "APIKeys", ofType: "plist"),
+           let plist = NSDictionary(contentsOfFile: path),
+           let apiKey = plist["GeminiAPIKey"] as? String,
+           !apiKey.isEmpty {
+            print("✅ Successfully loaded Gemini API key from APIKeys.plist")
+            return apiKey
+        }
+        
+        // Fallback to environment variable (useful for CI/CD)
+        if let apiKey = ProcessInfo.processInfo.environment["GEMINI_API_KEY"],
+           !apiKey.isEmpty {
+            print("✅ Successfully loaded Gemini API key from environment variable")
+            return apiKey
+        }
+        
+        // If neither works, return empty string and the app will handle the error
+        print("⚠️ Warning: No Gemini API key found. Please add your API key to APIKeys.plist")
+        print("📝 Instructions: Copy APIKeys.plist.template to APIKeys.plist and add your key")
+        return ""
+    }()
+    
+    /// Validate that the API key is properly configured
+    static func validateAPIKey() -> Bool {
+        let isValid = !geminiAPIKey.isEmpty && geminiAPIKey != "YOUR_GEMINI_API_KEY_HERE"
+        if isValid {
+            print("✅ API key validation passed")
+        } else {
+            print("❌ API key validation failed - please check your APIKeys.plist configuration")
+        }
+        return isValid
+    }
     
     // MARK: - App Settings
     static let appName = "Martina"
