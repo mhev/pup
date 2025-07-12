@@ -8,6 +8,7 @@ struct Route: Identifiable {
     let totalTravelTime: TimeInterval // in seconds
     let efficiency: Double // percentage score
     let createdAt: Date
+    let aiReasoning: String? // Gemini's explanation of the optimization
     
     var formattedDistance: String {
         return String(format: "%.1f mi", totalDistance)

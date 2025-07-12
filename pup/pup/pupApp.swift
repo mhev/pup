@@ -9,9 +9,24 @@ import SwiftUI
 
 @main
 struct PupApp: App {
+    @State private var showOnboarding = !UserDefaults.standard.bool(forKey: "hasCompletedOnboarding")
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ZStack {
+                // Background color
+                Config.primaryColor
+                    .ignoresSafeArea()
+                
+                if showOnboarding {
+                    OnboardingView(showOnboarding: $showOnboarding)
+                        .onDisappear {
+                            UserDefaults.standard.set(true, forKey: "hasCompletedOnboarding")
+                        }
+                } else {
+                    ContentView()
+                }
+            }
         }
     }
 }

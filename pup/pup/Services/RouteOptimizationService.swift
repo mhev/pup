@@ -27,7 +27,8 @@ class RouteOptimizationService: ObservableObject {
                 totalDistance: 0,
                 totalTravelTime: 0,
                 efficiency: 1.0,
-                createdAt: Date()
+                createdAt: Date(),
+                aiReasoning: "Single visit - no optimization needed"
             )
         }
         
@@ -53,7 +54,8 @@ class RouteOptimizationService: ObservableObject {
             totalDistance: totalDistance,
             totalTravelTime: totalTravelTime,
             efficiency: efficiency,
-            createdAt: Date()
+            createdAt: Date(),
+            aiReasoning: "Basic time-based optimization"
         )
     }
     
