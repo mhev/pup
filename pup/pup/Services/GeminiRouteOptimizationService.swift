@@ -36,7 +36,8 @@ class GeminiRouteOptimizationService: ObservableObject {
                 totalTravelTime: 0,
                 efficiency: 1.0,
                 createdAt: Date(),
-                aiReasoning: "Single visit - no optimization needed"
+                aiReasoning: "Single visit - no optimization needed",
+                feasibleRoute: true
             )
         }
         
@@ -69,7 +70,8 @@ class GeminiRouteOptimizationService: ObservableObject {
                 totalTravelTime: parsedResponse.estimatedTravelTime,
                 efficiency: parsedResponse.efficiency,
                 createdAt: Date(),
-                aiReasoning: parsedResponse.reasoning
+                aiReasoning: parsedResponse.reasoning,
+                feasibleRoute: parsedResponse.feasibleRoute
             )
             
             await MainActor.run {
@@ -92,6 +94,7 @@ class GeminiRouteOptimizationService: ObservableObject {
         let estimatedTravelTime: TimeInterval
         let efficiency: Double
         let reasoning: String
+        let feasibleRoute: Bool
     }
     
     private func parseGeminiResponse(_ responseText: String, originalVisits: [Visit]) -> GeminiParsedResponse {
@@ -108,13 +111,15 @@ class GeminiRouteOptimizationService: ObservableObject {
             let estimatedDistance = jsonResponse["estimatedTotalDistance"] as? Double ?? 25.0
             let estimatedTravelTime = TimeInterval((jsonResponse["estimatedTotalTime"] as? Double ?? 90) * 60) // Convert minutes to seconds
             let efficiency = (jsonResponse["efficiency"] as? Double ?? 85.0) / 100.0 // Convert percentage to decimal
+            let feasibleRoute = jsonResponse["feasibleRoute"] as? Bool ?? true // Default to true if not specified
             
             return GeminiParsedResponse(
                 visits: optimizedVisits,
                 estimatedDistance: estimatedDistance,
                 estimatedTravelTime: estimatedTravelTime,
                 efficiency: efficiency,
-                reasoning: reasoning
+                reasoning: reasoning,
+                feasibleRoute: feasibleRoute
             )
         }
         
@@ -128,7 +133,8 @@ class GeminiRouteOptimizationService: ObservableObject {
             estimatedDistance: 25.0,
             estimatedTravelTime: 90 * 60,
             efficiency: 0.85,
-            reasoning: reasoning
+            reasoning: reasoning,
+            feasibleRoute: true // Fallback assumes feasible route
         )
     }
     
@@ -172,7 +178,17 @@ class GeminiRouteOptimizationService: ObservableObject {
             return originalVisits.sorted { $0.startTime < $1.startTime }
         }
         
-        return reorderVisits(visits: originalVisits, order: orderArray)
+        // Check if route is feasible - if not, only include visits that can be completed
+        let feasibleRoute = jsonResponse["feasibleRoute"] as? Bool ?? true
+        
+        let reorderedVisits = reorderVisits(visits: originalVisits, order: orderArray)
+        
+        if !feasibleRoute {
+            // If route is not feasible, the optimizedOrder array should only contain visits that can be completed
+            print("⚠️ DEBUG: Route is not feasible, only \(reorderedVisits.count) of \(originalVisits.count) visits can be completed")
+        }
+        
+        return reorderedVisits
     }
     
     private func cleanReasoning(_ reasoning: String) -> String {
@@ -318,7 +334,8 @@ class GeminiRouteOptimizationService: ObservableObject {
             totalTravelTime: totalTravelTime,
             efficiency: efficiency,
             createdAt: Date(),
-            aiReasoning: "Fallback optimization: Visits ordered by start time"
+            aiReasoning: "Fallback optimization: Visits ordered by start time",
+            feasibleRoute: true
         )
     }
     

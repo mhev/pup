@@ -9,6 +9,7 @@ struct Route: Identifiable {
     let efficiency: Double // percentage score
     let createdAt: Date
     let aiReasoning: String? // Gemini's explanation of the optimization
+    let feasibleRoute: Bool // Whether all visits could be accommodated
     
     var formattedDistance: String {
         return String(format: "%.1f mi", totalDistance)
@@ -31,6 +32,14 @@ struct Route: Identifiable {
         case 0.6..<0.8: return "yellow"
         default: return "red"
         }
+    }
+    
+    var feasibilityColor: String {
+        return feasibleRoute ? "green" : "red"
+    }
+    
+    var feasibilityText: String {
+        return feasibleRoute ? "All visits scheduled" : "Some visits excluded"
     }
 }
 

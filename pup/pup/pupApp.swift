@@ -27,6 +27,7 @@ struct PupApp: App {
                     ContentView()
                 }
             }
+            .preferredColorScheme(.light)
         }
     }
 }

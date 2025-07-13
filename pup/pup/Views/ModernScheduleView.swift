@@ -87,37 +87,50 @@ struct ModernScheduleView: View {
                                 .padding(.top, Config.sectionSpacing)
                             }
                             
-                            // Visit groups
-                            if !viewModel.upcomingVisits.isEmpty {
-                                LazyVStack(spacing: Config.sectionSpacing) {
-                                    ForEach(TimeOfDay.allCases, id: \.self) { timeOfDay in
-                                        let visits = groupedVisits[timeOfDay] ?? []
-                                        if !visits.isEmpty {
-                                            GroupedVisitSection(
-                                                timeOfDay: timeOfDay,
-                                                visits: visits,
-                                                isCompactMode: isCompactMode,
-                                                onCompleteVisit: { visit in
-                                                    withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
-                                                        viewModel.markVisitCompleted(visit)
+                            // Visit groups and empty state
+                            VStack(spacing: Config.sectionSpacing) {
+                                if !viewModel.upcomingVisits.isEmpty {
+                                    LazyVStack(spacing: Config.sectionSpacing) {
+                                        ForEach(TimeOfDay.allCases, id: \.self) { timeOfDay in
+                                            let visits = groupedVisits[timeOfDay] ?? []
+                                            if !visits.isEmpty {
+                                                GroupedVisitSection(
+                                                    timeOfDay: timeOfDay,
+                                                    visits: visits,
+                                                    isCompactMode: isCompactMode,
+                                                    onCompleteVisit: { visit in
+                                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                                            viewModel.markVisitCompleted(visit)
+                                                        }
+                                                    },
+                                                    onTapVisit: { visit in
+                                                        selectedVisit = visit
                                                     }
-                                                },
-                                                onTapVisit: { visit in
-                                                    selectedVisit = visit
-                                                }
-                                            )
+                                                )
+                                            }
                                         }
                                     }
-                                }
-                                .padding(.horizontal, Config.largeSpacing)
-                                .padding(.top, Config.largeSpacing)
-                            }
-                            
-                            // Completed visits section
-                            if !viewModel.completedVisits.isEmpty {
-                                CompletedVisitsModernSection(visits: viewModel.completedVisits)
                                     .padding(.horizontal, Config.largeSpacing)
                                     .padding(.top, Config.largeSpacing)
+                                } else {
+                                    // Empty state for visits
+                                    if !showingAddVisit {
+                                        ModernEmptyState(
+                                            selectedDate: viewModel.selectedDate,
+                                            isToday: viewModel.isToday
+                                        ) {
+                                            showingAddVisit = true
+                                        }
+                                        .padding(.top, Config.largeSpacing)
+                                    }
+                                }
+                                
+                                // Completed visits section
+                                if !viewModel.completedVisits.isEmpty {
+                                    CompletedVisitsModernSection(visits: viewModel.completedVisits)
+                                        .padding(.horizontal, Config.largeSpacing)
+                                        .padding(.top, Config.largeSpacing)
+                                }
                             }
                             
                             // Bottom padding to account for FAB
@@ -167,31 +180,17 @@ struct ModernScheduleView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    HStack(spacing: Config.sectionSpacing) {
-                        Button(action: {
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                isCompactMode.toggle()
-                            }
-                        }) {
-                            Image(systemName: isCompactMode ? "list.bullet" : "square.grid.2x2")
-                                .font(.system(size: Config.bodyFontSize, weight: .semibold))
-                        }
-                        
-                        Button(action: viewModel.goToNextDay) {
-                            Image(systemName: "chevron.right")
-                                .font(.system(size: Config.bodyFontSize, weight: .semibold))
-                        }
+                    Button(action: viewModel.goToNextDay) {
+                        Image(systemName: "chevron.right")
+                            .font(.system(size: Config.bodyFontSize, weight: .semibold))
                     }
                 }
             }
-            .overlay(
-                showingAddVisit ? AddVisitBottomSheet(
-                    isPresented: $showingAddVisit,
-                    defaultDate: viewModel.selectedDate
-                ) { visit in
+            .sheet(isPresented: $showingAddVisit) {
+                AddVisitView(defaultDate: viewModel.selectedDate) { visit in
                     viewModel.addVisit(visit)
-                } : nil
-            )
+                }
+            }
             .sheet(isPresented: $showingDatePicker) {
                 CompactDatePickerView(viewModel: viewModel)
             }
@@ -216,16 +215,6 @@ struct ModernScheduleView: View {
                 )
                 .presentationDetents([.fraction(0.4), .medium])
                 .presentationDragIndicator(.visible)
-            }
-            .overlay {
-                if viewModel.todaysVisits.isEmpty {
-                    ModernEmptyState(
-                        selectedDate: viewModel.selectedDate,
-                        isToday: viewModel.isToday
-                    ) {
-                        showingAddVisit = true
-                    }
-                }
             }
         }
         .onAppear {

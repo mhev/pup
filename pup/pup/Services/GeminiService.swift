@@ -21,6 +21,10 @@ struct GeminiService {
         
         let prompt = buildRouteOptimizationPrompt(visits: visits, homeBase: homeBase)
         print("🔍 DEBUG: Prompt length: \(prompt.count) characters")
+        print("📤 SENDING TO GEMINI:")
+        print("======================")
+        print(prompt)
+        print("======================END PROMPT======================\n")
         
         // Add API key as URL parameter (correct format for Gemini API)
         let urlWithKey = "\(baseURL)?key=\(apiKey)"
@@ -60,7 +64,7 @@ struct GeminiService {
             print("🔍 DEBUG: Request body serialized successfully")
         } catch {
             print("❌ DEBUG: Failed to serialize request body: \(error)")
-            throw GeminiError.requestFailed(error.localizedDescription)
+            throw GeminiError.jsonParsingError(error)
         }
         
         print("🔍 DEBUG: Making API request...")
@@ -89,7 +93,7 @@ struct GeminiService {
                 if let responseString = String(data: data, encoding: .utf8) {
                     print("❌ DEBUG: Error response body: \(responseString)")
                 }
-                throw GeminiError.apiError(statusCode: httpResponse.statusCode)
+                throw GeminiError.invalidResponse
             }
             
             let json = try JSONSerialization.jsonObject(with: data) as? [String: Any]
@@ -102,6 +106,10 @@ struct GeminiService {
                let firstPart = parts.first,
                let text = firstPart["text"] as? String {
                 print("✅ DEBUG: Successfully extracted response text")
+                print("📥 GEMINI RESPONSE:")
+                print("======================")
+                print(text)
+                print("======================END RESPONSE======================\n")
                 return text
             } else {
                 print("❌ DEBUG: Failed to parse response structure")
@@ -114,7 +122,7 @@ struct GeminiService {
             throw error
         } catch {
             print("❌ DEBUG: Network error: \(error)")
-            throw GeminiError.requestFailed(error.localizedDescription)
+            throw GeminiError.networkError(error)
         }
     }
     
@@ -127,17 +135,21 @@ struct GeminiService {
         
         """
         
-        // Add home base information
+        // Add home base information with improved handling
         if let homeBase = homeBase, homeBase.isReady {
             prompt += """
-            HOME BASE (Starting Point):
-            - Name: \(homeBase.name)
-            - Address: \(homeBase.displayAddress)
+            HOME BASE: \(homeBase.displayAddress)
             
             """
         } else {
-            prompt += "HOME BASE: Not set (no specific starting point)\n\n"
+            prompt += "HOME BASE: Not provided - optimize from first visit location\n\n"
         }
+        
+        // Add time zone specification
+        prompt += """
+        TIME_ZONE: America/Chicago
+        
+        """
         
         // Detect overlapping time windows
         let overlappingWindows = detectOverlappingTimeWindows(visits: visits)
@@ -179,7 +191,7 @@ struct GeminiService {
            - Example: 7:00-8:00 AM window with 30-min duration = can start between 7:00-7:30 AM
            - This flexibility allows for optimal routing and scheduling
         2. MULTIPLE VISITS with overlapping time windows must be sequenced - they cannot happen simultaneously
-        3. Account for realistic travel time between locations (assume Austin, TX traffic - typically 10-20 minutes between locations)
+        3. Account for realistic travel time between locations. For Austin, TX traffic: locations within 5 miles estimate 10-15 minutes; locations 5-10 miles estimate 15-20 minutes; locations further apart estimate proportionally.
         4. When visits share the same time window, sequence them optimally considering:
            - Travel distance between locations
            - Service duration for each visit
@@ -187,10 +199,11 @@ struct GeminiService {
            - Use the time window flexibility to fit both visits optimally
         5. Minimize total travel distance and time across the entire day
         6. Consider the service duration for each visit
-        7. Start from the home base if provided
+        7. If HOME BASE is provided, start from that location. If HOME BASE is 'Not provided', assume the starting point for optimization is the location of the first scheduled visit in the optimized route.
+        8. If it is impossible to create a feasible route that accommodates all visits within their specified time windows, provide an 'optimizedOrder' array that includes only the visits that can be completed. Include a 'feasibleRoute' boolean flag set to 'false' in the JSON output. In the 'reasoning', clearly state which visits could not be fit into the schedule and why.
         
         ROUTE EFFICIENCY RULES:
-        ✅ START at home base (if provided)
+        ✅ START at home base (if provided) or first visit location
         ✅ Go DIRECTLY from visit to visit for maximum efficiency
         ❌ DO NOT return to home base after each visit
         ✅ When time windows overlap, choose the CLOSEST next visit
@@ -217,15 +230,17 @@ struct GeminiService {
           "estimatedTotalDistance": 25.5,
           "estimatedTotalTime": 145,
           "efficiency": 85,
+          "feasibleRoute": true,
           "reasoning": "Brief explanation of the optimization logic including how overlapping time windows were handled"
         }
         
         Where:
         - optimizedOrder: Array of visit numbers in the optimal order
         - estimatedTotalDistance: Total driving distance in miles
-        - estimatedTotalTime: Total travel time in minutes
-        - efficiency: Efficiency score from 1-100
-        - reasoning: Brief explanation of why this order is optimal, especially how overlapping windows were sequenced
+        - estimatedTotalTime: Total time elapsed from the start of the first visit until the end of the last visit, including both travel time between visits and the duration of each visit (in minutes)
+        - efficiency: Efficiency score from 1-100. A score of 100 indicates the most optimal route possible with minimal wasted time/distance and successful accommodation of all visits within their time windows. Lower scores indicate more travel or difficulty fitting visits.
+        - feasibleRoute: Boolean indicating if all visits can be accommodated within their time windows (true) or if some visits had to be excluded (false)
+        - reasoning: Brief explanation of why this order is optimal, especially how overlapping windows were sequenced. If feasibleRoute is false, clearly state which visits could not be fit and why.
         """
         
         return prompt
@@ -281,6 +296,7 @@ struct GeminiRouteResponse: Codable {
     let estimatedTotalDistance: Double
     let estimatedTotalTime: Double
     let efficiency: Double
+    let feasibleRoute: Bool?
     let reasoning: String
 }
 
@@ -297,31 +313,33 @@ struct OverlappingTimeWindow {
     let visits: [Visit]
 }
 
+// MARK: - Travel Times Support (Future Implementation)
+
+struct TravelTimes {
+    let travelTimes: [String: Int] // "visitName1-visitName2": travelTimeInMinutes
+}
+
+// MARK: - Error Types
+
 enum GeminiError: Error, LocalizedError {
     case missingAPIKey
     case invalidURL
-    case encodingFailed
+    case networkError(Error)
     case invalidResponse
-    case apiError(statusCode: Int)
-    case parsingFailed
-    case requestFailed(String)
+    case jsonParsingError(Error)
     
     var errorDescription: String? {
         switch self {
         case .missingAPIKey:
-            return "Gemini API key is missing. Please add your API key to the GeminiService."
+            return "Gemini API key is missing. Please check your configuration."
         case .invalidURL:
-            return "Invalid API URL"
-        case .encodingFailed:
-            return "Failed to encode request"
+            return "Invalid URL for Gemini API"
+        case .networkError(let error):
+            return "Network error: \(error.localizedDescription)"
         case .invalidResponse:
             return "Invalid response from Gemini API"
-        case .apiError(let statusCode):
-            return "API error with status code: \(statusCode)"
-        case .parsingFailed:
-            return "Failed to parse Gemini response"
-        case .requestFailed(let message):
-            return "Request failed: \(message)"
+        case .jsonParsingError(let error):
+            return "Error parsing JSON response: \(error.localizedDescription)"
         }
     }
 } 

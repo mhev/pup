@@ -166,6 +166,7 @@ struct AddVisitView: View {
                 let visit = try await viewModel.createVisit()
                 await MainActor.run {
                     onSave(visit)
+                    dismiss()
                 }
             } catch {
                 // Error is handled by the view model

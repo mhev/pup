@@ -247,62 +247,52 @@ struct SubscriptionOptionCard: View {
     
     var body: some View {
         Button(action: onSelect) {
-            VStack(spacing: Config.itemSpacing) {
-                HStack(spacing: Config.sectionSpacing) {
-                    // Selection indicator
-                    Circle()
-                        .fill(isSelected ? Config.evergreenColor : Color.clear)
-                        .stroke(isSelected ? Config.evergreenColor : Color.secondary, lineWidth: 2)
-                        .frame(width: 20, height: 20)
-                        .overlay(
-                            Circle()
-                                .fill(Color.white)
-                                .frame(width: 8, height: 8)
-                                .opacity(isSelected ? 1 : 0)
-                        )
-                    
-                    VStack(alignment: .leading, spacing: 6) {
-                        HStack {
-                            Text(product.displayName)
-                                .font(.system(size: Config.bodyFontSize, weight: .semibold))
-                                .foregroundColor(Config.evergreenColor)
-                                .lineLimit(2)
-                                .multilineTextAlignment(.leading)
-                                .fixedSize(horizontal: false, vertical: true)
-                            
-                            Spacer()
-                            
-                            if let savingsText = subscriptionService.savingsText(for: product) {
-                                Text(savingsText)
-                                    .font(.system(size: Config.captionFontSize, weight: .semibold))
-                                    .foregroundColor(.white)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 4)
-                                    .background(Config.evergreenColor)
-                                    .cornerRadius(12)
-                            }
-                        }
-                        
-                        Text(product.description)
-                            .font(.system(size: Config.captionFontSize))
-                            .foregroundColor(Config.evergreenColor.opacity(0.8))
-                            .lineLimit(3)
-                            .multilineTextAlignment(.leading)
-                            .fixedSize(horizontal: false, vertical: true)
-                    }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing, spacing: 2) {
-                        Text(product.displayPrice)
-                            .font(.system(size: Config.bodyFontSize, weight: .bold))
+            HStack(spacing: Config.sectionSpacing) {
+                // Selection indicator
+                Circle()
+                    .fill(isSelected ? Config.evergreenColor : Color.clear)
+                    .stroke(isSelected ? Config.evergreenColor : Color.secondary, lineWidth: 2)
+                    .frame(width: 20, height: 20)
+                    .overlay(
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 8, height: 8)
+                            .opacity(isSelected ? 1 : 0)
+                    )
+                
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack {
+                        Text(product.displayName)
+                            .font(.system(size: Config.bodyFontSize, weight: .semibold))
                             .foregroundColor(Config.evergreenColor)
                         
-                        if product.id == "com.hev.pup.yearly" {
-                            Text("$10.00/month")
-                                .font(.system(size: Config.captionFontSize, weight: .medium))
-                                .foregroundColor(Config.evergreenColor.opacity(0.8))
+                        if let savingsText = subscriptionService.savingsText(for: product) {
+                            Text(savingsText)
+                                .font(.system(size: Config.captionFontSize, weight: .semibold))
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Config.evergreenColor)
+                                .cornerRadius(12)
                         }
+                    }
+                    
+                    Text(product.description)
+                        .font(.system(size: Config.captionFontSize))
+                        .foregroundColor(Config.evergreenColor.opacity(0.8))
+                }
+                
+                Spacer()
+                
+                VStack(alignment: .trailing, spacing: 2) {
+                    Text(product.displayPrice)
+                        .font(.system(size: Config.bodyFontSize, weight: .bold))
+                        .foregroundColor(Config.evergreenColor)
+                    
+                    if product.id == "com.hev.pup.yearly" {
+                        Text("$10.00/month")
+                            .font(.system(size: Config.captionFontSize, weight: .medium))
+                            .foregroundColor(Config.evergreenColor.opacity(0.8))
                     }
                 }
             }

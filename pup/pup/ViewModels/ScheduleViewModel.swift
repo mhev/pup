@@ -112,7 +112,7 @@ class ScheduleViewModel: ObservableObject {
     }
     
     func optimizeCurrentRoute() {
-        let todaysVisits = visits.filter { Calendar.current.isDate($0.startTime, inSameDayAs: selectedDate) }
+        let todaysVisits = visits.filter { Calendar.current.isDate($0.startTime, inSameDayAs: selectedDate) && !$0.isCompleted }
         
         guard !todaysVisits.isEmpty else {
             optimizedRoute = nil
