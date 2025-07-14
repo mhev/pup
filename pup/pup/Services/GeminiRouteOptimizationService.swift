@@ -198,16 +198,6 @@ class GeminiRouteOptimizationService: ObservableObject {
             .replacingOccurrences(of: "\\n", with: " ")
             .replacingOccurrences(of: "  ", with: " ")
         
-        // If reasoning is too long, truncate it nicely
-        if cleaned.count > 200 {
-            let truncated = String(cleaned.prefix(197))
-            if let lastSpace = truncated.lastIndex(of: " ") {
-                return String(truncated[..<lastSpace]) + "..."
-            } else {
-                return truncated + "..."
-            }
-        }
-        
         return cleaned
     }
     

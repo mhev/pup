@@ -261,25 +261,17 @@ struct SubscriptionOptionCard: View {
                     )
                 
                 VStack(alignment: .leading, spacing: 2) {
-                    HStack {
-                        Text(product.displayName)
-                            .font(.system(size: Config.bodyFontSize, weight: .semibold))
-                            .foregroundColor(Config.evergreenColor)
-                        
-                        if let savingsText = subscriptionService.savingsText(for: product) {
-                            Text(savingsText)
-                                .font(.system(size: Config.captionFontSize, weight: .semibold))
-                                .foregroundColor(.white)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 4)
-                                .background(Config.evergreenColor)
-                                .cornerRadius(12)
-                        }
-                    }
+                    Text(product.displayName)
+                        .font(.system(size: Config.bodyFontSize, weight: .semibold))
+                        .foregroundColor(Config.evergreenColor)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
                     
                     Text(product.description)
                         .font(.system(size: Config.captionFontSize))
                         .foregroundColor(Config.evergreenColor.opacity(0.8))
+                        .lineLimit(2)
+                        .truncationMode(.tail)
                 }
                 
                 Spacer()

@@ -8,6 +8,7 @@ struct IncomeDashboardView: View {
     @State private var showingAddIncome = false
     @State private var showingImportOptions = false
     @State private var showingTipReminders = false
+    @State private var showingSubscriptionPaywall = false
     
     var body: some View {
         NavigationView {
@@ -92,6 +93,9 @@ struct IncomeDashboardView: View {
         }
         .sheet(isPresented: $showingTipReminders) {
             TipRemindersView(incomeService: incomeService)
+        }
+        .sheet(isPresented: $showingSubscriptionPaywall) {
+            SubscriptionPaywallView(isPresented: $showingSubscriptionPaywall)
         }
     }
     
@@ -278,7 +282,7 @@ struct IncomeDashboardView: View {
                 .multilineTextAlignment(.center)
             
             Button(action: { 
-                // Show subscription paywall
+                showingSubscriptionPaywall = true
             }) {
                 Text("Upgrade to Premium")
                     .font(.system(size: Config.captionFontSize, weight: .medium))

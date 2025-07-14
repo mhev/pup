@@ -7,21 +7,23 @@ struct ModernVisitCard: View {
     let isCompactMode: Bool
     let onComplete: () -> Void
     let onTap: (() -> Void)?
+    let onDelete: (() -> Void)?
     
     @State private var dragOffset: CGSize = .zero
     @State private var isShowingCompleteAction = false
-    @State private var showingCompletionAlert = false
+    @State private var showingDeleteAlert = false
     
-    init(visit: Visit, isCompactMode: Bool = false, onComplete: @escaping () -> Void, onTap: (() -> Void)? = nil) {
+    init(visit: Visit, isCompactMode: Bool = false, onComplete: @escaping () -> Void, onTap: (() -> Void)? = nil, onDelete: (() -> Void)? = nil) {
         self.visit = visit
         self.isCompactMode = isCompactMode
         self.onComplete = onComplete
         self.onTap = onTap
+        self.onDelete = onDelete
     }
     
     var body: some View {
         ZStack {
-            // Background completion action
+            // Background delete action
             HStack {
                 Spacer()
                 
@@ -34,21 +36,21 @@ struct ModernVisitCard: View {
                     let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                     impactFeedback.impactOccurred()
                     
-                    showingCompletionAlert = true
+                    showingDeleteAlert = true
                 }) {
                     VStack {
-                        Image(systemName: "checkmark")
+                        Image(systemName: "trash")
                             .font(.system(size: 20, weight: .bold))
                             .foregroundColor(.white)
                         
                         if !isCompactMode {
-                            Text("Complete")
+                            Text("Delete")
                                 .font(.system(size: Config.captionFontSize, weight: .medium))
                                 .foregroundColor(.white)
                         }
                     }
                     .frame(width: 80, height: isCompactMode ? 60 : 80)
-                    .background(Config.evergreenColor)
+                    .background(Color.red)
                     .cornerRadius(Config.cardCornerRadius)
                 }
                 .padding(.trailing, Config.cardPadding)
@@ -157,11 +159,11 @@ struct ModernVisitCard: View {
                         if horizontalDistance > verticalDistance {
                             withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
                                 if value.translation.width < -80 {
-                                    // Show completion confirmation
+                                    // Show delete confirmation
                                     let impactFeedback = UIImpactFeedbackGenerator(style: .medium)
                                     impactFeedback.impactOccurred()
                                     dragOffset = .zero
-                                    showingCompletionAlert = true
+                                    showingDeleteAlert = true
                                 } else {
                                     // Snap back
                                     dragOffset = .zero
@@ -181,13 +183,13 @@ struct ModernVisitCard: View {
                 }
             }
         }
-        .alert("Complete Visit", isPresented: $showingCompletionAlert) {
+        .alert("Delete Visit", isPresented: $showingDeleteAlert) {
             Button("Cancel", role: .cancel) { }
-            Button("Complete") {
-                onComplete()
+            Button("Delete", role: .destructive) {
+                onDelete?()
             }
         } message: {
-            Text("Mark \(visit.petName)'s \(visit.serviceType.rawValue.lowercased()) as completed?")
+            Text("Are you sure you want to delete \(visit.petName)'s \(visit.serviceType.rawValue.lowercased())? This action cannot be undone.")
         }
     }
     
@@ -355,6 +357,7 @@ struct GroupedVisitSection: View {
     let isCompactMode: Bool
     let onCompleteVisit: (Visit) -> Void
     let onTapVisit: (Visit) -> Void
+    let onDeleteVisit: (Visit) -> Void
     
     @State private var isExpanded = true
     
@@ -378,6 +381,9 @@ struct GroupedVisitSection: View {
                             },
                             onTap: {
                                 onTapVisit(visit)
+                            },
+                            onDelete: {
+                                onDeleteVisit(visit)
                             }
                         )
                     }

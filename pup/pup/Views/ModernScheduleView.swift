@@ -105,6 +105,11 @@ struct ModernScheduleView: View {
                                                     },
                                                     onTapVisit: { visit in
                                                         selectedVisit = visit
+                                                    },
+                                                    onDeleteVisit: { visit in
+                                                        withAnimation(.spring(response: 0.4, dampingFraction: 0.8)) {
+                                                            viewModel.removeVisit(visit)
+                                                        }
                                                     }
                                                 )
                                             }

@@ -173,18 +173,18 @@ struct ValueCarouselView: View {
             
             Spacer()
             
-            // Navigation
-            OnboardingNavigation(
-                currentPage: $currentPage,
-                showOnboarding: $showOnboarding,
-                totalPages: 4,
-                nextButtonText: "Import Your Schedule"
-            )
+                            // Navigation
+                OnboardingNavigation(
+                    currentPage: $currentPage,
+                    showOnboarding: $showOnboarding,
+                    totalPages: 4,
+                    nextButtonText: "Continue"
+                )
         }
     }
     
     private func startAutoAdvance() {
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: true) { _ in
+        Timer.scheduledTimer(withTimeInterval: 6.0, repeats: true) { _ in
             withAnimation(.easeInOut(duration: 0.5)) {
                 valueIndex = (valueIndex + 1) % values.count
             }
@@ -518,25 +518,46 @@ struct OnboardingNavigation: View {
                     }
                     .font(.system(size: Config.bodyFontSize, weight: .medium))
                     .foregroundColor(.secondary)
-                }
-                
-                Spacer()
-                
-                Button(nextButtonText) {
-                    if currentPage < totalPages - 1 {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            currentPage += 1
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Spacer()
+                    
+                    Button(nextButtonText) {
+                        if currentPage < totalPages - 1 {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                currentPage += 1
+                            }
+                        } else {
+                            showOnboarding = false
                         }
-                    } else {
-                        showOnboarding = false
                     }
+                    .font(.system(size: Config.bodyFontSize, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, Config.largeSpacing)
+                    .padding(.vertical, Config.sectionSpacing)
+                    .background(Config.evergreenColor)
+                    .cornerRadius(Config.buttonCornerRadius)
+                    
+                    Spacer()
+                } else {
+                    // Center the button when there's no back button
+                    Button(nextButtonText) {
+                        if currentPage < totalPages - 1 {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                currentPage += 1
+                            }
+                        } else {
+                            showOnboarding = false
+                        }
+                    }
+                    .font(.system(size: Config.bodyFontSize, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal, Config.largeSpacing)
+                    .padding(.vertical, Config.sectionSpacing)
+                    .background(Config.evergreenColor)
+                    .cornerRadius(Config.buttonCornerRadius)
+                    .frame(maxWidth: .infinity)
                 }
-                .font(.system(size: Config.bodyFontSize, weight: .semibold))
-                .foregroundColor(.white)
-                .padding(.horizontal, Config.largeSpacing)
-                .padding(.vertical, Config.sectionSpacing)
-                .background(Config.evergreenColor)
-                .cornerRadius(Config.buttonCornerRadius)
             }
         }
         .padding(.horizontal, Config.largeSpacing)

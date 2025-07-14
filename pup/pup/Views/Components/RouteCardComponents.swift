@@ -89,6 +89,8 @@ struct FullRouteCard: View {
     let onOptimize: () -> Void
     let onCollapse: () -> Void
     
+    @State private var showingAIInsightsPopup = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: Config.sectionSpacing) {
             // Header with title and progress ring
@@ -145,51 +147,165 @@ struct FullRouteCard: View {
                 
                 VStack(alignment: .leading, spacing: Config.itemSpacing) {
                     Button(action: {
-                        withAnimation(.easeInOut(duration: 0.3)) {
-                            isReasoningExpanded.toggle()
+                        withAnimation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0)) {
+                            showingAIInsightsPopup = true
                         }
                     }) {
                         HStack(spacing: Config.itemSpacing) {
                             Image(systemName: "sparkles")
                                 .font(.system(size: Config.bodyFontSize))
-                                .foregroundColor(Config.aiInsightColor)
+                                .foregroundColor(.white)
                             
                             Text("AI Insights")
                                 .font(.system(size: Config.bodyFontSize, weight: .semibold))
-                                .foregroundColor(Config.aiInsightColor)
+                                .foregroundColor(.white)
                             
                             Spacer()
+                            
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: Config.captionFontSize))
+                                .foregroundColor(.white.opacity(0.8))
                         }
+                        .padding(.horizontal, Config.sectionSpacing)
+                        .padding(.vertical, Config.sectionSpacing)
+                        .background(
+                            RoundedRectangle(cornerRadius: Config.chipCornerRadius)
+                                .fill(Config.aiInsightColor)
+                        )
                     }
                     .buttonStyle(PlainButtonStyle())
-                    
-                    if isReasoningExpanded {
-                        ScrollView {
-                            Text(reasoning)
-                                .font(.system(size: Config.bodyFontSize))
-                                .foregroundColor(.primary)
-                                .fixedSize(horizontal: false, vertical: true)
-                                .padding(.top, Config.itemSpacing)
-                        }
-                        .frame(maxHeight: 200)
-                        .transition(.opacity.combined(with: .move(edge: .top)))
-                    }
                 }
             }
             
-            // Collapse button
-            HStack {
-                Spacer()
-                
-                Button(action: onCollapse) {
-                    Image(systemName: "chevron.down")
-                        .font(.system(size: Config.captionFontSize))
-                        .foregroundColor(.secondary)
+            // Action buttons
+            HStack(spacing: Config.sectionSpacing) {
+                Button(action: onOptimize) {
+                    HStack(spacing: Config.itemSpacing) {
+                        Image(systemName: "arrow.triangle.2.circlepath")
+                            .font(.system(size: Config.captionFontSize))
+                        
+                        Text("Re-optimize")
+                            .font(.system(size: Config.captionFontSize, weight: .medium))
+                    }
+                    .foregroundColor(Config.navigationColor)
+                    .padding(.horizontal, Config.sectionSpacing)
+                    .padding(.vertical, Config.itemSpacing)
+                    .background(
+                        RoundedRectangle(cornerRadius: Config.chipCornerRadius)
+                            .fill(Config.navigationColor.opacity(0.1))
+                    )
                 }
                 .buttonStyle(PlainButtonStyle())
+                
+                Spacer()
             }
         }
         .cardStyle()
+        .overlay(
+            // AI Insights Popup
+            AIInsightsPopup(
+                isPresented: $showingAIInsightsPopup,
+                reasoning: route.aiReasoning ?? ""
+            )
+        )
+    }
+}
+
+// MARK: - AI Insights Popup
+
+struct AIInsightsPopup: View {
+    @Binding var isPresented: Bool
+    let reasoning: String
+    
+    var body: some View {
+        if isPresented {
+            ZStack {
+                // Background overlay
+                Color.black.opacity(0.4)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+                            isPresented = false
+                        }
+                    }
+                
+                // Popup content
+                VStack(alignment: .leading, spacing: Config.sectionSpacing) {
+                    // Header
+                    HStack(spacing: Config.itemSpacing) {
+                        Image(systemName: "sparkles")
+                            .font(.system(size: Config.bodyLargeFontSize))
+                            .foregroundColor(Config.aiInsightColor)
+                        
+                        Text("AI Insights")
+                            .font(.system(size: Config.bodyLargeFontSize, weight: .semibold))
+                            .foregroundColor(.primary)
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+                                isPresented = false
+                            }
+                        }) {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.system(size: Config.bodyLargeFontSize))
+                                .foregroundColor(.secondary)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
+                    
+                    // Divider
+                    Divider()
+                    
+                    // Full reasoning text
+                    ScrollView {
+                        Text(reasoning)
+                            .font(.system(size: Config.bodyFontSize))
+                            .foregroundColor(.primary)
+                            .lineSpacing(6)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.bottom, Config.itemSpacing)
+                    }
+                    .frame(maxHeight: 450)
+                    
+                    // Dismiss button
+                    Button(action: {
+                        withAnimation(.spring(response: 0.5, dampingFraction: 0.8, blendDuration: 0)) {
+                            isPresented = false
+                        }
+                    }) {
+                        HStack {
+                            Spacer()
+                            Text("Got it")
+                                .font(.system(size: Config.bodyFontSize, weight: .medium))
+                                .foregroundColor(.white)
+                            Spacer()
+                        }
+                        .padding(.vertical, Config.sectionSpacing)
+                        .background(Config.aiInsightColor)
+                        .cornerRadius(Config.chipCornerRadius)
+                    }
+                    .buttonStyle(PlainButtonStyle())
+                }
+                .padding(Config.largeSpacing)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Config.cardBackgroundColor)
+                        .shadow(color: .black.opacity(0.15), radius: 30, x: 0, y: 15)
+                        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
+                )
+                .padding(.horizontal, Config.largeSpacing)
+                .scaleEffect(isPresented ? 1.0 : 0.7)
+                .opacity(isPresented ? 1.0 : 0.0)
+                .animation(.spring(response: 0.6, dampingFraction: 0.7, blendDuration: 0), value: isPresented)
+            }
+            .transition(.asymmetric(
+                insertion: .scale(scale: 0.7).combined(with: .opacity),
+                removal: .scale(scale: 0.9).combined(with: .opacity)
+            ))
+        }
     }
 }
 
