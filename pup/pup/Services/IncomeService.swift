@@ -312,4 +312,56 @@ enum EarningsPeriod: String, CaseIterable {
     case today = "Today"
     case thisWeek = "This Week"
     case thisMonth = "This Month"
-    case
+    case thisYear = "This Year"
+    case allTime = "All Time"
+}
+
+struct MonthlyEarnings: Identifiable {
+    let id = UUID()
+    let month: Date
+    let earnings: Double
+}
+
+struct TipReminder: Identifiable, Codable {
+    let id = UUID()
+    let visitId: UUID
+    let clientName: String
+    let petName: String
+    let serviceType: ServiceType
+    let visitDate: Date
+    let reminderDate: Date
+    let isCompleted: Bool
+    
+    var isActive: Bool {
+        return reminderDate <= Date() && !isCompleted
+    }
+}
+
+struct TaxSummary {
+    let totalIncome: Double
+    let businessExpenses: Double
+    let taxableIncome: Double
+    let estimatedTaxes: Double
+}
+
+// MARK: - Date Formatters
+
+extension DateFormatter {
+    static let monthYear: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        return formatter
+    }()
+    
+    static let shortDate: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .short
+        return formatter
+    }()
+    
+    static let chartMonth: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM yy"
+        return formatter
+    }()
+} 
