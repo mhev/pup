@@ -142,16 +142,39 @@ class IncomeService: ObservableObject {
         let calendar = Calendar.current
         let now = Date()
         
-        var monthlyData: [String: Double] = [:]
+        var monthlyData: [Date: Double] = [:]
+        
+        print("📊 Income entries count: \(incomeEntries.count)")
         
         for entry in incomeEntries {
             let monthKey = calendar.dateInterval(of: .month, for: entry.date)?.start ?? entry.date
-            let monthString = DateFormatter.monthYear.string(from: monthKey)
-            monthlyData[monthString, default: 0] += entry.total
+            monthlyData[monthKey, default: 0] += entry.total
+            print("📊 Entry: \(entry.clientName) - \(entry.petName), Amount: \(entry.total), Date: \(entry.date), Month: \(monthKey)")
         }
         
-        return monthlyData.map { MonthlyEarnings(month: $0.key, earnings: $0.value) }
+        // Always show at least 6 months of data for a proper trend
+        let endDate = monthlyData.keys.max() ?? now
+        let startDate = calendar.date(byAdding: .month, value: -5, to: endDate) ?? endDate
+        
+        // Fill in missing months with 0 earnings
+        var currentDate = startDate
+        while currentDate <= endDate {
+            let monthKey = calendar.dateInterval(of: .month, for: currentDate)?.start ?? currentDate
+            if monthlyData[monthKey] == nil {
+                monthlyData[monthKey] = 0
+            }
+            currentDate = calendar.date(byAdding: .month, value: 1, to: currentDate) ?? currentDate
+        }
+        
+        let result = monthlyData.map { MonthlyEarnings(month: $0.key, earnings: $0.value) }
             .sorted { $0.month < $1.month }
+        
+        print("📊 Monthly data result: \(result.count) months")
+        for item in result {
+            print("📊 Month: \(item.month), Earnings: \(item.earnings)")
+        }
+        
+        return result
     }
     
     // MARK: - Tip Reminders
@@ -289,50 +312,4 @@ enum EarningsPeriod: String, CaseIterable {
     case today = "Today"
     case thisWeek = "This Week"
     case thisMonth = "This Month"
-    case thisYear = "This Year"
-    case allTime = "All Time"
-}
-
-struct MonthlyEarnings: Identifiable {
-    let id = UUID()
-    let month: String
-    let earnings: Double
-}
-
-struct TipReminder: Identifiable, Codable {
-    let id = UUID()
-    let visitId: UUID
-    let clientName: String
-    let petName: String
-    let serviceType: ServiceType
-    let visitDate: Date
-    let reminderDate: Date
-    let isCompleted: Bool
-    
-    var isActive: Bool {
-        return reminderDate <= Date() && !isCompleted
-    }
-}
-
-struct TaxSummary {
-    let totalIncome: Double
-    let businessExpenses: Double
-    let taxableIncome: Double
-    let estimatedTaxes: Double
-}
-
-// MARK: - Date Formatters
-
-extension DateFormatter {
-    static let monthYear: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM"
-        return formatter
-    }()
-    
-    static let shortDate: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .short
-        return formatter
-    }()
-} 
+    case

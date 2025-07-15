@@ -205,26 +205,60 @@ struct IncomeDashboardView: View {
                 
                 let monthlyData = incomeService.getMonthlyEarningsTrend()
                 
-                Chart(monthlyData) { item in
-                    LineMark(
-                        x: .value("Month", item.month),
-                        y: .value("Earnings", item.earnings)
-                    )
-                    .foregroundStyle(Config.evergreenColor)
-                    .lineStyle(StrokeStyle(lineWidth: 3))
-                    
-                    AreaMark(
-                        x: .value("Month", item.month),
-                        y: .value("Earnings", item.earnings)
-                    )
-                    .foregroundStyle(Config.evergreenColor.opacity(0.1))
-                }
+                if monthlyData.isEmpty {
+                    // Empty state for chart
+                    VStack(spacing: Config.sectionSpacing) {
+                        Image(systemName: "chart.line.uptrend.xyaxis")
+                            .font(.system(size: Config.largeFontSize))
+                            .foregroundColor(.gray)
+                        
+                        Text("No data to display")
+                            .font(.system(size: Config.bodyFontSize))
+                            .foregroundColor(.secondary)
+                        
+                        Text("Add some income entries to see your earnings trend")
+                            .font(.system(size: Config.captionFontSize))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                    }
+                    .frame(height: 200)
+                    .frame(maxWidth: .infinity)
+                } else {
+                    Chart(monthlyData) { item in
+                        LineMark(
+                            x: .value("Month", item.month),
+                            y: .value("Earnings", item.earnings)
+                        )
+                        .foregroundStyle(Config.evergreenColor)
+                        .lineStyle(StrokeStyle(lineWidth: 3))
+                        
+                        AreaMark(
+                            x: .value("Month", item.month),
+                            y: .value("Earnings", item.earnings)
+                        )
+                        .foregroundStyle(Config.evergreenColor.opacity(0.1))
+                    }
                 .frame(height: 200)
                 .chartXAxis {
-                    AxisMarks(values: .automatic(desiredCount: 5))
+                    AxisMarks(values: .automatic(desiredCount: 6)) { value in
+                        if let date = value.as(Date.self) {
+                            AxisValueLabel {
+                                Text(DateFormatter.chartMonth.string(from: date))
+                                    .font(.system(size: Config.captionFontSize))
+                            }
+                        }
+                    }
                 }
                 .chartYAxis {
-                    AxisMarks(position: .leading)
+                    AxisMarks(position: .leading) { value in
+                        if let earnings = value.as(Double.self) {
+                            AxisValueLabel {
+                                Text("$\(Int(earnings))")
+                                    .font(.system(size: Config.captionFontSize))
+                            }
+                        }
+                    }
+                }
                 }
             }
             .padding(Config.sectionSpacing)
@@ -247,7 +281,7 @@ struct IncomeDashboardView: View {
             
             ForEach(monthlyData.suffix(6)) { item in
                 HStack {
-                    Text(item.month)
+                    Text(DateFormatter.monthYear.string(from: item.month))
                         .font(.system(size: Config.captionFontSize))
                         .foregroundColor(.secondary)
                     
