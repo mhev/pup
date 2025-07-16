@@ -9,6 +9,7 @@ struct ModernScheduleView: View {
     @State private var isRouteCollapsed = false
     @State private var scrollOffset: CGFloat = 0
     @State private var selectedVisit: Visit?
+    @State private var showingImportOptions = false
     
     private var dayOfWeek: String {
         let formatter = DateFormatter()
@@ -185,9 +186,20 @@ struct ModernScheduleView: View {
                 }
                 
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: viewModel.goToNextDay) {
-                        Image(systemName: "chevron.right")
-                            .font(.system(size: Config.bodyFontSize, weight: .semibold))
+                    HStack(spacing: Config.itemSpacing) {
+                        Menu {
+                            Button(action: { showingImportOptions = true }) {
+                                Label("Import Data", systemImage: "square.and.arrow.down")
+                            }
+                        } label: {
+                            Image(systemName: "ellipsis.circle")
+                                .foregroundColor(Config.evergreenColor)
+                        }
+                        
+                        Button(action: viewModel.goToNextDay) {
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: Config.bodyFontSize, weight: .semibold))
+                        }
                     }
                 }
             }
@@ -198,6 +210,9 @@ struct ModernScheduleView: View {
             }
             .sheet(isPresented: $showingDatePicker) {
                 CompactDatePickerView(viewModel: viewModel)
+            }
+            .sheet(isPresented: $showingImportOptions) {
+                ImportOptionsView(incomeService: IncomeService(), scheduleViewModel: viewModel)
             }
             .sheet(item: $selectedVisit) { visit in
                 VisitDetailBottomSheet(

@@ -168,7 +168,7 @@ class SubscriptionService: ObservableObject {
         
         // Calculate savings compared to monthly
         let monthlyPrice = 14.99
-        let yearlyPrice = 119.99
+        let yearlyPrice = 99.99
         let monthlyCost = monthlyPrice * 12
         let savings = monthlyCost - yearlyPrice
         let percentage = Int((savings / monthlyCost) * 100)

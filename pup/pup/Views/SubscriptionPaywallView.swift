@@ -282,7 +282,7 @@ struct SubscriptionOptionCard: View {
                         .foregroundColor(Config.evergreenColor)
                     
                     if product.id == "com.hev.pup.yearly" {
-                        Text("$10.00/month")
+                        Text("$8.33/month")
                             .font(.system(size: Config.captionFontSize, weight: .medium))
                             .foregroundColor(Config.evergreenColor.opacity(0.8))
                     }

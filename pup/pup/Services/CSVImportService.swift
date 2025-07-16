@@ -262,7 +262,7 @@ class CSVImportService: ObservableObject {
             duration: max(15, duration),
             serviceType: serviceType,
             notes: data["notes"] ?? data["special instructions"],
-            isCompleted: endTime < Date()
+            isCompleted: false
         )
     }
     
@@ -299,7 +299,7 @@ class CSVImportService: ObservableObject {
             duration: max(15, duration),
             serviceType: serviceType,
             notes: data["notes"],
-            isCompleted: endTime < Date()
+            isCompleted: false
         )
     }
     
@@ -335,7 +335,7 @@ class CSVImportService: ObservableObject {
             duration: max(15, duration),
             serviceType: serviceType,
             notes: data["notes"],
-            isCompleted: endTime < Date()
+            isCompleted: false
         )
     }
     

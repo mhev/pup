@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 
 struct ImportOptionsView: View {
     @ObservedObject var incomeService: IncomeService
+    var scheduleViewModel: ScheduleViewModel?
     @StateObject private var calendarService = CalendarImportService()
     @StateObject private var csvService = CSVImportService()
     @Environment(\.dismiss) private var dismiss
@@ -304,8 +305,11 @@ struct ImportOptionsView: View {
     }
     
     private func importSchedule(_ visits: [Visit]) {
-        // Import to schedule view model
-        // This would need to be connected to the main app's schedule service
+        if let scheduleViewModel = scheduleViewModel {
+            for visit in visits {
+                scheduleViewModel.addVisit(visit)
+            }
+        }
         dismiss()
     }
     
@@ -491,5 +495,5 @@ struct IncomeImportPreview: View {
 }
 
 #Preview {
-    ImportOptionsView(incomeService: IncomeService())
+    ImportOptionsView(incomeService: IncomeService(), scheduleViewModel: nil)
 } 
