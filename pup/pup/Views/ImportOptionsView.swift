@@ -265,6 +265,9 @@ struct ImportOptionsView: View {
                 if !visits.isEmpty {
                     previewVisits = visits
                     showingScheduleImport = true
+                } else if calendarService.errorMessage == nil {
+                    // No error but no visits found - provide helpful feedback
+                    calendarService.errorMessage = "No pet-related events found in the selected date range. Make sure your calendar events include pet keywords like 'walk', 'dog', 'pet sitting', etc. and have addresses/locations."
                 }
             }
         }

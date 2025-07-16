@@ -14,6 +14,8 @@
 	<string>Martina needs location access to track your mileage for business trips and provide route optimization.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Martina needs location access to track your mileage for business trips and provide route optimization.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Martina needs calendar access to import your pet care appointments and automatically create visits in your schedule.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>

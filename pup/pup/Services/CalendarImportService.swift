@@ -16,24 +16,34 @@ class CalendarImportService: ObservableObject {
     // MARK: - Authorization
     
     func requestCalendarAccess() async -> Bool {
-        switch EKEventStore.authorizationStatus(for: .event) {
+        let status = EKEventStore.authorizationStatus(for: .event)
+        print("📅 Calendar authorization status: \(status)")
+        
+        switch status {
         case .authorized:
+            print("📅 Calendar access already authorized")
             return true
         case .notDetermined:
+            print("📅 Requesting calendar access...")
             do {
-                return try await eventStore.requestAccess(to: .event)
+                let granted = try await eventStore.requestAccess(to: .event)
+                print("📅 Calendar access granted: \(granted)")
+                return granted
             } catch {
+                print("📅 Calendar access request failed: \(error)")
                 await MainActor.run {
                     errorMessage = "Failed to request calendar access: \(error.localizedDescription)"
                 }
                 return false
             }
         case .denied, .restricted:
+            print("📅 Calendar access denied/restricted")
             await MainActor.run {
-                errorMessage = "Calendar access denied. Please enable in Settings > Privacy & Security > Calendars"
+                errorMessage = "Calendar access denied. Please go to Settings > Privacy & Security > Calendars > Martina and enable access."
             }
             return false
         @unknown default:
+            print("📅 Unknown calendar authorization status")
             return false
         }
     }
@@ -41,9 +51,14 @@ class CalendarImportService: ObservableObject {
     // MARK: - Import Events
     
     func importEventsFromCalendar(dateRange: DateInterval) async -> [Visit] {
+        print("📅 Starting calendar import for range: \(dateRange.start) to \(dateRange.end)")
+        
         guard await requestCalendarAccess() else {
+            print("📅 Calendar access denied or failed")
             return []
         }
+        
+        print("📅 Calendar access granted")
         
         await MainActor.run {
             isImporting = true
@@ -61,6 +76,7 @@ class CalendarImportService: ObservableObject {
         do {
             // Get all calendars
             let calendars = eventStore.calendars(for: .event)
+            print("📅 Found \(calendars.count) calendars: \(calendars.map { $0.title })")
             
             await MainActor.run {
                 importProgress = 0.2
@@ -72,6 +88,7 @@ class CalendarImportService: ObservableObject {
                 end: dateRange.end,
                 calendars: calendars
             )
+            print("📅 Created predicate for date range: \(dateRange.start) to \(dateRange.end)")
             
             await MainActor.run {
                 importProgress = 0.4
@@ -79,6 +96,7 @@ class CalendarImportService: ObservableObject {
             
             // Fetch events
             let events = eventStore.events(matching: predicate)
+            print("📅 Found \(events.count) total calendar events")
             
             await MainActor.run {
                 importedEvents = events
@@ -87,6 +105,7 @@ class CalendarImportService: ObservableObject {
             
             // Filter and convert relevant events to visits
             let visits = await convertEventsToVisits(events)
+            print("📅 Converted \(visits.count) events to visits")
             
             await MainActor.run {
                 importProgress = 1.0
@@ -115,9 +134,14 @@ class CalendarImportService: ObservableObject {
             
             // Only process events that might be pet-related
             if isPetRelatedEvent(event) {
+                print("📅 Processing pet-related event: '\(event.title ?? "Unknown")'")
                 if let visit = await convertEventToVisit(event) {
                     visits.append(visit)
+                } else {
+                    print("📅 Failed to convert event to visit (likely missing address)")
                 }
+            } else {
+                print("📅 Skipping non-pet event: '\(event.title ?? "Unknown")'")
             }
         }
         
@@ -135,9 +159,13 @@ class CalendarImportService: ObservableObject {
             "doggy", "petsitting", "pet sitting", "dog walking", "dogwalking"
         ]
         
-        return petKeywords.contains { keyword in
+        let isPetRelated = petKeywords.contains { keyword in
             title.contains(keyword) || notes.contains(keyword) || location.contains(keyword)
         }
+        
+        print("📅 Event: '\(event.title ?? "Unknown")' - Title: '\(title)', Location: '\(location)', Pet-related: \(isPetRelated)")
+        
+        return isPetRelated
     }
     
     private func convertEventToVisit(_ event: EKEvent) async -> Visit? {
@@ -174,7 +202,7 @@ class CalendarImportService: ObservableObject {
             duration: max(15, duration), // Minimum 15 minutes
             serviceType: serviceType,
             notes: event.notes,
-            isCompleted: event.endDate < Date()
+            isCompleted: false
         )
     }
     
@@ -264,9 +292,11 @@ class CalendarImportService: ObservableObject {
         let calendar = Calendar.current
         let now = Date()
         
-        // Default to next 30 days
-        let startDate = calendar.startOfDay(for: now)
-        let endDate = calendar.date(byAdding: .day, value: 30, to: startDate) ?? now
+        // Include 30 days back and 90 days forward to catch more events
+        let startDate = calendar.date(byAdding: .day, value: -30, to: calendar.startOfDay(for: now)) ?? now
+        let endDate = calendar.date(byAdding: .day, value: 90, to: calendar.startOfDay(for: now)) ?? now
+        
+        print("📅 Date range calculation: Now = \(now), Start = \(startDate), End = \(endDate)")
         
         return DateInterval(start: startDate, end: endDate)
     }
